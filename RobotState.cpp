@@ -9,8 +9,8 @@ RobotState::RobotState()
 }
 
 RobotState::RobotState(Status status, qint64 timestamp,
-    float x, float v, float a, qint8 light)
-    : _status(status), _timestamp(timestamp), _x(x), _v(v), _a(a), _light(light)
+    float x, float y, float vx, float vy, float ax, float ay, qint8 light)
+    : _status(status), _timestamp(timestamp), _x(x), _y(y), _vx(vx), _vy(vy), _ax(ax), _ay(ay), _light(light)
 {
     initStatusNames();
 }
@@ -39,8 +39,11 @@ void RobotState::WriteTo(QDataStream& stream) const
     stream << (qint32)_status;
     stream << _timestamp;
     stream << _x;
-    stream << _v;
-    stream << _a;
+	stream << _y;
+    stream << _vx;
+	stream << _vy;
+    stream << _ax;
+	stream << _ay;
     stream << _light;
 }
 
@@ -51,8 +54,11 @@ void RobotState::ReadFrom(QDataStream& stream)
     _status = (Status)tmpQint32;
     stream >> _timestamp;
     stream >> _x;
-    stream >> _v;
-    stream >> _a;
+	stream >> _y;
+    stream >> _vx;
+	stream >> _vy;
+	stream >> _ax;
+    stream >> _ay;
     stream >> _light;
 }
 
@@ -61,8 +67,11 @@ void RobotState::CopyFrom(const RobotState &other)
     _status = other._status;
     _timestamp = other._timestamp;
     _x = other._x;
-    _v = other._v;
-    _a = other._a;
+	_y = other._y;
+    _vx = other._vx;
+	_vy = other._vy;
+    _ax = other._ax;
+	_ay = other.ay;
     _light = other._light;
 }
 
