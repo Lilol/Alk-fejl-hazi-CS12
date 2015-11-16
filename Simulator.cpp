@@ -15,8 +15,11 @@ void Simulator::start(float intervalSec)
     state.setStatus(RobotState::Status::Default);
     state.setTimestamp(0);
     state.setX(0.0F);
-    state.setV(0.0F);
-    state.setA(0.0F);
+	state.setY(0.0F);
+    state.setVx(0.0F);
+	state.setVy(0.0F);
+    state.setAx(0.0F);
+	state.setAy(0.0F);
     state.setLight(0);
     timer.start((long)(intervalSec*1000.0F));
 }
@@ -25,17 +28,29 @@ void Simulator::tick()
 {
     // Fizikai szimuláció
     state.setTimestamp(state.timestamp() + dt);
-    state.setX(state.x() + state.v()*dt);
-    state.setV(state.v() + state.a()*dt);
+    state.setX(state.x() + state.vx()*dt);
+	state.setY(state.y() + state.vy()*dt);
+    state.setVx(state.vx() + state.ax()*dt);
+	state.setVy(state.vy() + state.ay()*dt);
 
-    if (state.v()<-10.0)
+    if (state.vx()<-10.0)
     {
-        state.setV( -10.0F );
+        state.setVx( -10.0F );
     }
-    if (state.v()>10.0)
+    if (state.vx()>10.0)
     {
-        state.setV( 10.0F );
+        state.setVx( 10.0F );
     }
+	
+	if (state.vy()<-10.0)
+    {
+        state.setVy( -10.0F );
+    }
+    if (state.vy()>10.0)
+    {
+        state.setVy( 10.0F );
+    }
+
 
     state.setLight( state.v()==10.0F ? 1.0F : 0.0F );
 
@@ -48,8 +63,11 @@ void Simulator::tick()
         qDebug() << "Simulator: Reset";
         state.setStatus(RobotState::Status::Default);
         state.setX(0.0F);
-        state.setV(0.0F);
-        state.setA(0.0F);
+		state.setY(0.0F);
+        state.setVx(0.0F);
+		state.setVy(0.0F);
+        state.setAx(0.0F);
+		state.setAy(0.0F);
         state.setLight(0);
         break;
     case RobotState::Status::Stopping:
