@@ -49,7 +49,7 @@ public:
      * @param light Robot lámpájának állapota
      */
     RobotState(Status status, qint64 timestamp,
-        float x, float v, float a, qint8 light);
+        float x, float y, float vx, float vy, float ax, float ay, qint8 light);
 
     ~RobotState() = default;
 
@@ -65,20 +65,35 @@ public:
     qint64 timestamp() const { return _timestamp; }
     void setTimestamp(const qint64 timestamp) { _timestamp = timestamp; }
 
-    /** Pozíció (méter) */
+    /** X Pozíció (méter) */
     Q_PROPERTY(float x READ x WRITE setX MEMBER _x NOTIFY xChanged)
     float x() const { return _x; }
     void setX(float x) { _x = x; }
+	
+	/** Y Pozíció (méter) */
+    Q_PROPERTY(float y READ y WRITE setY MEMBER _y NOTIFY yChanged)
+    float y() const { return _y; }
+    void setY(float x) { _y = y; }
 
-    /** Sebesség (m/s) */
-    Q_PROPERTY(float v READ v WRITE setV MEMBER _v NOTIFY vChanged)
-    float v() const { return _v; }
-    void setV(float v) { _v = v; }
+    /** X irányú Sebesség (m/s) */
+    Q_PROPERTY(float vx READ vx WRITE setVx MEMBER _vx NOTIFY vxChanged)
+    float vx() const { return _vx; }
+    void setVx(float vx) { _vx = vx; }
+	
+	/** Y irányú Sebesség (m/s) */
+    Q_PROPERTY(float vy READ vy WRITE setVy MEMBER _vy NOTIFY vyChanged)
+    float vy() const { return _vy; }
+    void setVy(float vy) { _vy = vy; }
 
-    /** Gyorsulás (m/s2) */
-    Q_PROPERTY(float a READ a WRITE setA MEMBER _a NOTIFY aChanged)
-    float a() const { return _a; }
-    void setA(float a) { _a = a; }
+    /** X irányú Gyorsulás (m/s2) */
+    Q_PROPERTY(float ax READ ax WRITE setAx MEMBER _ax NOTIFY axChanged)
+    float ax() const { return _ax; }
+    void setAx(float ax) { _ax = ax; }
+	
+	/** Y irányú Gyorsulás (m/s2) */
+    Q_PROPERTY(float ay READ ay WRITE setAy MEMBER _ay NOTIFY ayChanged)
+    float ay() const { return _ay; }
+    void setAy(float ay) { _ay = ay; }
 
     /** A robot lámpájának állapota. */
     Q_PROPERTY(bool light READ light WRITE setLight MEMBER _light NOTIFY lightChanged)
@@ -107,16 +122,22 @@ signals:
     void statusChanged();
     void timestampChanged();
     void xChanged();
-    void vChanged();
-    void aChanged();
+	void yChanged();
+    void vxChanged();
+	void vyChanged();
+    void axChanged();
+	void ayChanged();
     void lightChanged();
 
 private:
     Status _status;
     qint64 _timestamp;
-    float _x;   /** Pozíció (m) */
-    float _v;   /** Sebesség (m/s) */
-    float _a;   /** Gyorsulás (m/s2) */
+    float _x;   /** X Pozíció (m) */
+	float _y	/** Y Pozíció */
+    float _vx;   /** Sebesség (m/s) */
+	float _vy;
+    float _ax;   /** X irányú Gyorsulás (m/s2) */
+	float _ay;
     qint8 _light;
 
     /** Az állapotok és szöveges verziójuk közti megfeleltetés.
