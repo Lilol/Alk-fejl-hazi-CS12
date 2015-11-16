@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2015-11-16T19:07:50
+# Project created by QtCreator 2015-11-16T19:57:16
 #
 #-------------------------------------------------
 
@@ -8,12 +8,12 @@ QT       += testlib
 
 QT       -= gui
 
-TARGET = unitTests
+TARGET = tst_UnitTests
 CONFIG   += console
 CONFIG   -= app_bundle
 
 TEMPLATE = app
 
 
-SOURCES += unitTests.cpp
+SOURCES += tst_UnitTests.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
