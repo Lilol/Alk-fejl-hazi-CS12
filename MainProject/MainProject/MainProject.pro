@@ -11,10 +11,14 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = MainProject
 TEMPLATE = app
 
+CONFIG += c++14
+QMAKE_CXXFLAGS_CXX11    = -std=c++1y
 
 SOURCES += main.cpp\
-        MainWindow.cpp
+        MainWindow.cpp \
+    RobotState.cpp
 
-HEADERS  += MainWindow.h
+HEADERS  += MainWindow.h \
+    RobotState.h
 
 FORMS    += MainWindow.ui
