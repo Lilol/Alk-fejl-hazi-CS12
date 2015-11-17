@@ -14,11 +14,15 @@ TEMPLATE = app
 CONFIG += c++14
 QMAKE_CXXFLAGS_CXX11    = -std=c++1y
 
+QT += qml quick widgets
+QT += serialport
 SOURCES += main.cpp\
         MainWindow.cpp \
-    RobotState.cpp
+		RobotState.cpp \
+		RobotCommand.cpp \
 
 HEADERS  += MainWindow.h \
-    RobotState.h
+			RobotState.h \
+			RobotCommand.h \
 
 FORMS    += MainWindow.ui

@@ -91,16 +91,17 @@ QDataStream &operator>>(QDataStream& stream, RobotState& state)
     return stream;
 }
 
-QDataStream &operator<<(QDataStream& stream, const QVector<bool>& sensors)
+QDataStream &operator<<(QDataStream& stream, const QVector<int>& sensors)
 {
     stream << sensors.size();
     for(const auto sensorValue : sensors)
     {
         stream << sensorValue;
     }
+    return stream;
 }
 
-QDataStream &operator>>(QDataStream& stream, QVector<bool>& sensors)
+QDataStream &operator>>(QDataStream& stream, QVector<int>& sensors)
 {
     uint size;
     sensors.clear();
@@ -111,4 +112,5 @@ QDataStream &operator>>(QDataStream& stream, QVector<bool>& sensors)
         stream >> sensorValue;
         sensors << sensorValue;
     }
+    return stream;
 }
