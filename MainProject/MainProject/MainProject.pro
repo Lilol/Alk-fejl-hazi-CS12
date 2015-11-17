@@ -16,9 +16,11 @@ QMAKE_CXXFLAGS_CXX11    = -std=c++1y
 
 SOURCES += main.cpp\
         MainWindow.cpp \
-    RobotState.cpp
+    RobotState.cpp \
+    RobotCommand.cpp
 
 HEADERS  += MainWindow.h \
-    RobotState.h
+    RobotState.h \
+    RobotCommand.h
 
 FORMS    += MainWindow.ui
