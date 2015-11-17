@@ -1,5 +1,5 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-    UnitTests/UnitTests \
-    MainProject/MainProject
+    UnitTests \
+    MainProject
