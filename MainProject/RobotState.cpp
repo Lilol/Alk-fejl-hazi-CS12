@@ -98,6 +98,7 @@ QDataStream &operator<<(QDataStream& stream, const QVector<bool>& sensors)
     {
         stream << sensorValue;
     }
+    return stream;
 }
 
 QDataStream &operator>>(QDataStream& stream, QVector<bool>& sensors)
@@ -111,4 +112,5 @@ QDataStream &operator>>(QDataStream& stream, QVector<bool>& sensors)
         stream >> sensorValue;
         sensors << sensorValue;
     }
+    return stream;
 }

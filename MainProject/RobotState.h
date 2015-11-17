@@ -1,6 +1,7 @@
 #pragma once
 #ifndef ROBOT_STATE_H
 #define ROBOT_STATE_H
+
 #include <QDataStream>
 #include <QString>
 #include <QVector>
@@ -57,23 +58,23 @@ public:
     void setY(float y) { _y = y; }
 
     /** Sebesség (m/s) */
-    Q_PROPERTY(float v_x READ v_x WRITE setVx MEMBER _v_x NOTIFY vChanged)
-    float vx() const { return _v_x; }
+    Q_PROPERTY(float v_x READ v_x WRITE setVx MEMBER _v_x NOTIFY vxChanged)
+    float v_x() const { return _v_x; }
     void setVx(float v_x) { _v_x = v_x; }
 
     /** Sebesség (m/s) */
-    Q_PROPERTY(float v_y READ v_y WRITE setVy MEMBER _v_y NOTIFY vChanged)
-    float vy() const { return _v_y; }
+    Q_PROPERTY(float v_y READ v_y WRITE setVy MEMBER _v_y NOTIFY vyChanged)
+    float v_y() const { return _v_y; }
     void setVy(float v_y) { _v_y = v_y; }
 
     /** Gyorsulás (m/s2) */
-    Q_PROPERTY(float a_x READ a_x WRITE setAx MEMBER _a_x NOTIFY aChanged)
-    float ax() const { return _a_x; }
+    Q_PROPERTY(float a_x READ a_x WRITE setAx MEMBER _a_x NOTIFY axChanged)
+    float a_x() const { return _a_x; }
     void setAx(float a_x) { _a_x = a_x; }
 
     /** Gyorsulás (m/s2) */
-    Q_PROPERTY(float a_y READ a_y WRITE setAy MEMBER _a_y NOTIFY aChanged)
-    float ay() const { return _a_y; }
+    Q_PROPERTY(float a_y READ a_y WRITE setAy MEMBER _a_y NOTIFY ayChanged)
+    float a_y() const { return _a_y; }
     void setAy(float a_y) { _a_y = a_y; }
 
     /** A robot lámpájának állapota. */
@@ -82,9 +83,9 @@ public:
     void setLight(float light) { _light = light; }
 
     /** Szenzorok értéke. */
-    Q_PROPERTY(QVector<bool> sensors READ sensors WRITE setSensors MEMBER _sensors NOTIFY sensorsChanges)
+    Q_PROPERTY(QVector<bool> sensors READ sensors WRITE setSensors MEMBER _sensors NOTIFY sensorsChanged)
     QVector<bool> sensors() const { return _sensors; }
-    void setLight(QVector<bool> sensors) { _sensors = sensors; }
+    void setSensors(QVector<bool> sensors) { _sensors = sensors; }
 
     /** Az aktuális állapot QStringként. */
     // In QML, it will be accessible as model.statusName
@@ -108,9 +109,13 @@ signals:
     void statusChanged();
     void timestampChanged();
     void xChanged();
-    void vChanged();
-    void aChanged();
+    void yChanged();
+    void vxChanged();
+    void vyChanged();
+    void axChanged();
+    void ayChanged();
     void lightChanged();
+    void sensorsChanged();
 
 private:
     Status _status;

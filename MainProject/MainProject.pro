@@ -17,15 +17,18 @@ QMAKE_CXXFLAGS_CXX11    = -std=c++1y
 QT += qml quick widgets
 QT += serialport
 
+# Default rules for deployment.
+# include(deployment.pri)
+
 SOURCES += main.cpp\
         MainWindow.cpp \
-		RobotState.cpp \
-		RobotCommand.cpp \
-		TcpCommunication/TcpCommunication.cpp
+        RobotState.cpp \
+        RobotCommand.cpp \
+        TcpCommunication/TcpCommunication.cpp
 
 HEADERS  += MainWindow.h \
-			RobotState.h \
-			RobotCommand.h \
-			TcpCommunication/TcpCommunication.h
+            RobotState.h \
+            RobotCommand.h \
+            TcpCommunication/TcpCommunication.h
 
 FORMS    += MainWindow.ui

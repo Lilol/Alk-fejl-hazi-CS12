@@ -17,7 +17,7 @@ class TcpCommunication: public QObject
 public:
     /** Konstruktor */
     TcpCommunication();
-    ~TcpCommunication();
+    virtual ~TcpCommunication();
 
     /** Csatlakozás egy eszközhöz (Pl. QTcpSocket), amit használni fog. */
     void connectToDevice(QIODevice *device);
