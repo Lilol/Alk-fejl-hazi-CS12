@@ -32,7 +32,27 @@ void Simulator::tick()
 	state.setY(state.y() + state.vy()*dt);
     state.setVx(state.vx() + state.ax()*dt);
 	state.setVy(state.vy() + state.ay()*dt);
-
+	
+	
+	// pozíció szaturáció
+	if (state.x() > 400)
+	{
+		state.setX(400);
+	}
+	if (state.x() < -400)
+	{
+		state.setX(-400);
+	}
+	if (state.y() > 300)
+	{
+		state.setY(300);
+	}
+	if (state.y() < -300)
+	{
+		state.setY(-300);
+	}
+	
+	// sebesség szaturáció
     if (state.vx()<-10.0)
     {
         state.setVx( -10.0F );
