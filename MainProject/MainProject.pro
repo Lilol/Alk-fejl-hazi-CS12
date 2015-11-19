@@ -21,14 +21,19 @@ QT += serialport
 # include(deployment.pri)
 
 SOURCES += main.cpp\
-        MainWindow.cpp \
         RobotState.cpp \
         RobotCommand.cpp \
-        TcpCommunication/TcpCommunication.cpp
+        TcpCommunication/TcpCommunication.cpp \
+    TcpCommunication/TcpSocketClient.cpp \
+    TcpCommunication/TcpSocketServer.cpp \
+    MainApplication.cpp
 
-HEADERS  += MainWindow.h \
+HEADERS  += \
             RobotState.h \
             RobotCommand.h \
-            TcpCommunication/TcpCommunication.h
+            TcpCommunication/TcpCommunication.h \
+    TcpCommunication/TcpSocketClient.h \
+    TcpCommunication/TcpSocketServer.h \
+    MainApplication.h
 
 FORMS    += MainWindow.ui
