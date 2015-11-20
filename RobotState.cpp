@@ -45,6 +45,7 @@ void RobotState::WriteTo(QDataStream& stream) const
     stream << _ax;
 	stream << _ay;
     stream << _light;
+	stream << _sensors;
 }
 
 void RobotState::ReadFrom(QDataStream& stream)
@@ -60,6 +61,7 @@ void RobotState::ReadFrom(QDataStream& stream)
 	stream >> _ax;
     stream >> _ay;
     stream >> _light;
+	stream >> _sensors;
 }
 
 void RobotState::CopyFrom(const RobotState &other)
@@ -73,6 +75,7 @@ void RobotState::CopyFrom(const RobotState &other)
     _ax = other._ax;
 	_ay = other.ay;
     _light = other._light;
+	_sensors = other._sensors;
 }
 
 QDataStream &operator<<(QDataStream& stream, const RobotState& state)

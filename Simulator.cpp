@@ -33,6 +33,14 @@ void Simulator::tick()
     state.setVx(state.vx() + state.ax()*dt);
 	state.setVy(state.vy() + state.ay()*dt);
 	
+	// szenzor szimuláció
+	QVector<float> sensorTemp;
+	sensorTemp.append(300-state.y);
+	sensorTemp.append(400-state.x);
+	sensorTemp.append(300+state.y);
+	sensorTemp.append(400+state.x);
+	state.setSensors(sensorTemp);
+	
 	
 	// pozíció szaturáció
 	if (state.x() > 400)

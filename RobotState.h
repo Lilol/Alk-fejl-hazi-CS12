@@ -49,7 +49,7 @@ public:
      * @param light Robot lámpájának állapota
      */
     RobotState(Status status, qint64 timestamp,
-        float x, float y, float vx, float vy, float ax, float ay, qint8 light);
+        float x, float y, float vx, float vy, float ax, float ay, qint8 light, QVector<float> sensors);
 
     ~RobotState() = default;
 
@@ -99,6 +99,11 @@ public:
     Q_PROPERTY(bool light READ light WRITE setLight MEMBER _light NOTIFY lightChanged)
     float light() const { return _light; }
     void setLight(float light) { _light = light; }
+	
+	/** Szenzorok értéke. 4db faltávolság */
+    Q_PROPERTY(QVector<float> sensors READ sensors WRITE setSensors MEMBER _sensors NOTIFY sensorsChanged)
+    QVector<float> sensors() const { return _sensors; }
+    void setSensors(QVector<float> sensors) { _sensors = sensors; }
 
     /** Az aktuális állapot QStringként. */
     // In QML, it will be accessible as model.statusName
@@ -128,6 +133,7 @@ signals:
     void axChanged();
 	void ayChanged();
     void lightChanged();
+	void sensorsChanged();
 
 private:
     Status _status;
@@ -139,7 +145,9 @@ private:
     float _ax;   /** X irányú Gyorsulás (m/s2) */
 	float _ay;
     qint8 _light;
-
+	QVector<float> _sensors;
+	
+	
     /** Az állapotok és szöveges verziójuk közti megfeleltetés.
      * A getStatusName() használja. */
     static std::map<int,QString> statusNames;
