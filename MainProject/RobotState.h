@@ -3,6 +3,7 @@
 #define ROBOTSTATE_H
 #include <QDataStream>
 #include <QString>
+#include <QVector>
 
 /**
  * @brief A robot teljes állapotleírása le egy adott időpillanatban.
@@ -73,7 +74,7 @@ public:
 	/** Y Pozíció (méter) */
     Q_PROPERTY(float y READ y WRITE setY MEMBER _y NOTIFY yChanged)
     float y() const { return _y; }
-    void setY(float x) { _y = y; }
+    void setY(float y) { _y = y; }
 
     /** X irányú Sebesség (m/s) */
     Q_PROPERTY(float vx READ vx WRITE setVx MEMBER _vx NOTIFY vxChanged)
@@ -139,7 +140,7 @@ private:
     Status _status;
     qint64 _timestamp;
     float _x;   /** X Pozíció (m) */
-	float _y	/** Y Pozíció */
+    float _y;	/** Y Pozíció */
     float _vx;   /** Sebesség (m/s) */
 	float _vy;
     float _ax;   /** X irányú Gyorsulás (m/s2) */

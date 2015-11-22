@@ -9,8 +9,8 @@ RobotState::RobotState()
 }
 
 RobotState::RobotState(Status status, qint64 timestamp,
-    float x, float y, float vx, float vy, float ax, float ay, qint8 light)
-    : _status(status), _timestamp(timestamp), _x(x), _y(y), _vx(vx), _vy(vy), _ax(ax), _ay(ay), _light(light)
+    float x, float y, float vx, float vy, float ax, float ay, qint8 light, QVector<float> sensors)
+    : _status(status), _timestamp(timestamp), _x(x), _y(y), _vx(vx), _vy(vy), _ax(ax), _ay(ay), _light(light), _sensors(sensors)
 {
     initStatusNames();
 }
@@ -73,7 +73,7 @@ void RobotState::CopyFrom(const RobotState &other)
     _vx = other._vx;
 	_vy = other._vy;
     _ax = other._ax;
-	_ay = other.ay;
+    _ay = other._ay;
     _light = other._light;
 	_sensors = other._sensors;
 }
