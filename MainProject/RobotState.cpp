@@ -1,5 +1,4 @@
 #include <QDebug>
-#include <QVector>
 #include "RobotState.h"
 
 std::map<int,QString> RobotState::statusNames;
@@ -10,8 +9,8 @@ RobotState::RobotState()
 }
 
 RobotState::RobotState(Status status, qint64 timestamp,
-                       float x, float y, float v_x, float v_y, float a_x, float a_y, qint8 light, QVector<bool> sensors)
-    : _status(status), _timestamp(timestamp), _x(x), _y(y), _v_x(v_x), _v_y(v_y), _a_x(a_x), _a_y(a_y), _light(light), _sensors(sensors)
+    float x, float y, float vx, float vy, float ax, float ay, qint8 light)
+    : _status(status), _timestamp(timestamp), _x(x), _y(y), _vx(vx), _vy(vy), _ax(ax), _ay(ay), _light(light)
 {
     initStatusNames();
 }
@@ -40,13 +39,13 @@ void RobotState::WriteTo(QDataStream& stream) const
     stream << (qint32)_status;
     stream << _timestamp;
     stream << _x;
-    stream << _y;
-    stream << _v_x;
-    stream << _v_y;
-    stream << _a_x;
-    stream << _a_y;
+	stream << _y;
+    stream << _vx;
+	stream << _vy;
+    stream << _ax;
+	stream << _ay;
     stream << _light;
-    stream << _sensors;
+	stream << _sensors;
 }
 
 void RobotState::ReadFrom(QDataStream& stream)
@@ -56,13 +55,13 @@ void RobotState::ReadFrom(QDataStream& stream)
     _status = (Status)tmpQint32;
     stream >> _timestamp;
     stream >> _x;
-    stream >> _y;
-    stream >> _v_x;
-    stream >> _v_y;
-    stream >> _a_x;
-    stream >> _a_y;
+	stream >> _y;
+    stream >> _vx;
+	stream >> _vy;
+	stream >> _ax;
+    stream >> _ay;
     stream >> _light;
-    stream >> _sensors;
+	stream >> _sensors;
 }
 
 void RobotState::CopyFrom(const RobotState &other)
@@ -70,13 +69,13 @@ void RobotState::CopyFrom(const RobotState &other)
     _status = other._status;
     _timestamp = other._timestamp;
     _x = other._x;
-    _y = other._y;
-    _v_x = other._v_x;
-    _v_y = other._v_y;
-    _a_x = other._a_x;
-    _a_y = other._a_y;
+	_y = other._y;
+    _vx = other._vx;
+	_vy = other._vy;
+    _ax = other._ax;
+	_ay = other.ay;
     _light = other._light;
-    _sensors = other._sensors;
+	_sensors = other._sensors;
 }
 
 QDataStream &operator<<(QDataStream& stream, const RobotState& state)
@@ -88,29 +87,5 @@ QDataStream &operator<<(QDataStream& stream, const RobotState& state)
 QDataStream &operator>>(QDataStream& stream, RobotState& state)
 {
     state.ReadFrom(stream);
-    return stream;
-}
-
-QDataStream &operator<<(QDataStream& stream, const QVector<int>& sensors)
-{
-    stream << sensors.size();
-    for(const auto sensorValue : sensors)
-    {
-        stream << sensorValue;
-    }
-    return stream;
-}
-
-QDataStream &operator>>(QDataStream& stream, QVector<int>& sensors)
-{
-    uint size;
-    sensors.clear();
-    stream >> size;
-    for(uint i = 0; i < size; i++)
-    {
-        int sensorValue;
-        stream >> sensorValue;
-        sensors << sensorValue;
-    }
     return stream;
 }

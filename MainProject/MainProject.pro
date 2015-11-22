@@ -20,9 +20,11 @@ SOURCES += main.cpp\
         MainWindow.cpp \
 		RobotState.cpp \
 		RobotCommand.cpp \
+    Simulator.cpp
 
 HEADERS  += MainWindow.h \
 			RobotState.h \
 			RobotCommand.h \
+    Simulator.h
 
 FORMS    += MainWindow.ui
