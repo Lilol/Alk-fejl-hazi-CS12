@@ -1,20 +1,28 @@
 #pragma once
-#ifndef ROBOT_STATE_H
-#define ROBOT_STATE_H
+#ifndef ROBOTSTATE_H
+#define ROBOTSTATE_H
 
 #include <QDataStream>
 #include <QString>
 #include <QVector>
 
 /**
- * @brief
+ * @brief A robot teljes állapotleírása le egy adott időpillanatban.
  *
+ * A kommunikáció során ilyen objektumokat küldünk át a robot és a kliens között.
+ * A robottól érkezve az aktuális állapotot képviseli, míg az ellenkező irányba küldve
+ *  parancsként a kívánt állapotot írja le.
+ *
+ * A history ilyen objektumok sorozata.
  */
 class RobotState : public QObject
 {
     Q_OBJECT
 
 public:
+    /**
+     * @brief A robot állapota
+     */
     enum class Status
     {
         /** Alapállapot. A robot tartja az aktuális gyorsulást. */
@@ -28,10 +36,22 @@ public:
         Accelerate = 3
     };
 
+    /**
+     * @brief Konstruktor
+     */
     RobotState();
 
+    /**
+     * @brief Konstruktor adott értékekkel.
+     * @param status    Robot állapot
+     * @param timestamp Időbélyeg
+     * @param x Pozíció
+     * @param v Sebesség
+     * @param a Gyorsulás
+     * @param light Robot lámpájának állapota
+     */
     RobotState(Status status, qint64 timestamp,
-        float x, float y, float v_x, float v_y, float a_x, float a_y, qint8 light, QVector<bool> sensors);
+        float x, float y, float vx, float vy, float ax, float ay, qint8 light, QVector<float> sensors);
 
     ~RobotState() = default;
 
@@ -47,45 +67,45 @@ public:
     qint64 timestamp() const { return _timestamp; }
     void setTimestamp(const qint64 timestamp) { _timestamp = timestamp; }
 
-    /** Pozíció (méter) */
+    /** X Pozíció (méter) */
     Q_PROPERTY(float x READ x WRITE setX MEMBER _x NOTIFY xChanged)
     float x() const { return _x; }
     void setX(float x) { _x = x; }
-
-    /** Pozíció (méter) */
+	
+	/** Y Pozíció (méter) */
     Q_PROPERTY(float y READ y WRITE setY MEMBER _y NOTIFY yChanged)
     float y() const { return _y; }
     void setY(float y) { _y = y; }
 
-    /** Sebesség (m/s) */
-    Q_PROPERTY(float v_x READ v_x WRITE setVx MEMBER _v_x NOTIFY vxChanged)
-    float v_x() const { return _v_x; }
-    void setVx(float v_x) { _v_x = v_x; }
+    /** X irányú Sebesség (m/s) */
+    Q_PROPERTY(float vx READ vx WRITE setVx MEMBER _vx NOTIFY vxChanged)
+    float vx() const { return _vx; }
+    void setVx(float vx) { _vx = vx; }
+	
+	/** Y irányú Sebesség (m/s) */
+    Q_PROPERTY(float vy READ vy WRITE setVy MEMBER _vy NOTIFY vyChanged)
+    float vy() const { return _vy; }
+    void setVy(float vy) { _vy = vy; }
 
-    /** Sebesség (m/s) */
-    Q_PROPERTY(float v_y READ v_y WRITE setVy MEMBER _v_y NOTIFY vyChanged)
-    float v_y() const { return _v_y; }
-    void setVy(float v_y) { _v_y = v_y; }
-
-    /** Gyorsulás (m/s2) */
-    Q_PROPERTY(float a_x READ a_x WRITE setAx MEMBER _a_x NOTIFY axChanged)
-    float a_x() const { return _a_x; }
-    void setAx(float a_x) { _a_x = a_x; }
-
-    /** Gyorsulás (m/s2) */
-    Q_PROPERTY(float a_y READ a_y WRITE setAy MEMBER _a_y NOTIFY ayChanged)
-    float a_y() const { return _a_y; }
-    void setAy(float a_y) { _a_y = a_y; }
+    /** X irányú Gyorsulás (m/s2) */
+    Q_PROPERTY(float ax READ ax WRITE setAx MEMBER _ax NOTIFY axChanged)
+    float ax() const { return _ax; }
+    void setAx(float ax) { _ax = ax; }
+	
+	/** Y irányú Gyorsulás (m/s2) */
+    Q_PROPERTY(float ay READ ay WRITE setAy MEMBER _ay NOTIFY ayChanged)
+    float ay() const { return _ay; }
+    void setAy(float ay) { _ay = ay; }
 
     /** A robot lámpájának állapota. */
     Q_PROPERTY(bool light READ light WRITE setLight MEMBER _light NOTIFY lightChanged)
     float light() const { return _light; }
     void setLight(float light) { _light = light; }
-
-    /** Szenzorok értéke. */
-    Q_PROPERTY(QVector<bool> sensors READ sensors WRITE setSensors MEMBER _sensors NOTIFY sensorsChanged)
-    QVector<bool> sensors() const { return _sensors; }
-    void setSensors(QVector<bool> sensors) { _sensors = sensors; }
+	
+	/** Szenzorok értéke. 4db faltávolság */
+    Q_PROPERTY(QVector<float> sensors READ sensors WRITE setSensors MEMBER _sensors NOTIFY sensorsChanged)
+    QVector<float> sensors() const { return _sensors; }
+    void setSensors(QVector<float> sensors) { _sensors = sensors; }
 
     /** Az aktuális állapot QStringként. */
     // In QML, it will be accessible as model.statusName
@@ -109,27 +129,27 @@ signals:
     void statusChanged();
     void timestampChanged();
     void xChanged();
-    void yChanged();
+	void yChanged();
     void vxChanged();
-    void vyChanged();
+	void vyChanged();
     void axChanged();
-    void ayChanged();
+	void ayChanged();
     void lightChanged();
-    void sensorsChanged();
+	void sensorsChanged();
 
 private:
     Status _status;
     qint64 _timestamp;
-    float _x;   /** x irányú pozíció (m) */
-    float _y;   /** y irányú pozíció (m) */
-    float _v_x;   /** x irányú sebesség (m/s) */
-    float _v_y;   /** y irányú sebesség (m/s) */
-    float _a_x;   /** x irányú gyorsulás (m/s2) */
-    float _a_y;   /** y irányú gyorsulás (m/s2) */
+    float _x;   /** X Pozíció (m) */
+    float _y;	/** Y Pozíció */
+    float _vx;   /** Sebesség (m/s) */
+	float _vy;
+    float _ax;   /** X irányú Gyorsulás (m/s2) */
+	float _ay;
     qint8 _light;
-    QVector<bool> _sensors;
-
-
+	QVector<float> _sensors;
+	
+	
     /** Az állapotok és szöveges verziójuk közti megfeleltetés.
      * A getStatusName() használja. */
     static std::map<int,QString> statusNames;
