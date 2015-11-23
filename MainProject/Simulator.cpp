@@ -35,10 +35,10 @@ void Simulator::tick()
 	
 	// szenzor szimuláció
 	QVector<float> sensorTemp;
-	sensorTemp.append(300-state.y);
-	sensorTemp.append(400-state.x);
-	sensorTemp.append(300+state.y);
-	sensorTemp.append(400+state.x);
+    sensorTemp.append(300-state.y());
+    sensorTemp.append(400-state.x());
+    sensorTemp.append(300+state.y());
+    sensorTemp.append(400+state.x());
 	state.setSensors(sensorTemp);
 	
 	
@@ -80,7 +80,7 @@ void Simulator::tick()
     }
 
 
-    state.setLight( state.v()==10.0F ? 1.0F : 0.0F );
+    state.setLight( state.vx()==10.0F ? 1.0F : 0.0F );
 
     // Magasabb szintű funkciók
     switch(state.status())
@@ -99,32 +99,32 @@ void Simulator::tick()
         state.setLight(0);
         break;
     case RobotState::Status::Stopping:
-        if (state.v() > 1.5F)
+        if (state.vx() > 1.5F)
         {
             qDebug() << "Simulator: Stop parancs, gyors lassítás";
-            state.setA(-1.0F);
+            state.setAx(-1.0F);
         }
-        else if (state.v() > 0.1F)
+        else if (state.vx() > 0.1F)
         {
             qDebug() << "Simulator: Stop parancs, lassú lassítás";
-            state.setA(-0.05F);
+            state.setAx(-0.05F);
         }
-        else if (state.v() < -1.5F)
+        else if (state.vx() < -1.5F)
         {
             qDebug() << "Simulator: Stop parancs, gyorsítás előre";
-            state.setA(1.0F);
+            state.setAx(1.0F);
         }
-        else if (state.v() < -0.1F)
+        else if (state.vx() < -0.1F)
         {
             qDebug() << "Simulator: Stop parancs, lassú gyorsítás előre";
-            state.setA(0.05F);
+            state.setAx(0.05F);
         }
         else
         {
             // Majdnem megállt
             qDebug() << "Simulator: Megállt.";
             state.setStatus(RobotState::Status::Default);
-            state.setA(0.0F);
+            state.setAx(0.0F);
         }
         break;
     case RobotState::Status::Accelerate:
@@ -138,8 +138,8 @@ void Simulator::tick()
     qDebug() << "Simulator: tick (" << state.timestamp()
              << "): állapot=" << state.getStatusName()
              << ", x=" << state.x()
-             << ", v=" << state.v()
-             << ", a=" << state.a()
+             << ", v=" << state.vx()
+             << ", a=" << state.ax()
              << ", lámpa:" << state.light();
 
     // Állapot küldése
@@ -151,26 +151,27 @@ void Simulator::tick()
 
 void Simulator::dataReady(QDataStream &inputStream)
 {
-    RobotState receivedState;
-    receivedState.ReadFrom(inputStream);
+    RobotCommand receivedCommand;
+    receivedCommand.ReadFrom(inputStream);
 
-    switch(receivedState.status())
+    switch(receivedCommand.command())
     {
-    case RobotState::Status::Default:
+    case RobotCommand::Command::Default:
         qDebug() << "Simulator: OK parancs. Igen, minden OK, köszönöm!";
         break;
-    case RobotState::Status::Reset:
+    case RobotCommand::Command::Reset:
         qDebug() << "Simulator: Reset parancs.";
         state.setStatus(RobotState::Status::Reset);
         break;
-    case RobotState::Status::Stopping:
+    case RobotCommand::Command::Stopping:
         qDebug() << "Simulator: Stop parancs.";
         state.setStatus(RobotState::Status::Stopping);
         break;
-    case RobotState::Status::Accelerate:
+    case RobotCommand::Command::Accelerate:
         qDebug() << "Simulator: Gyorsítási parancs.";
         state.setStatus(RobotState::Status::Default);
-        state.setA(receivedState.a());
+        state.setAx(receivedCommand.accelerate_x());
+        state.setAy(receivedCommand.accelerate_y());
         break;
     default:
         Q_UNREACHABLE();

@@ -16,6 +16,8 @@ public:
         Accelerate = 0,
         Reset = 1,
         Test = 2,
+        Stopping = 3,
+        Default = 4,
     };
 
 

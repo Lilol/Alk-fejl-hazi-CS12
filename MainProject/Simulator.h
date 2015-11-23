@@ -3,8 +3,10 @@
 #define SIMULATOR_H
 #include <QObject>
 #include <QTimer>
+#include <QDebug>
 #include "Communication/CommunicationTcpSocketServer.h"
 #include "RobotState.h"
+#include "RobotCommand.h"
 
 /**
  * @brief A robot szimulátor.
