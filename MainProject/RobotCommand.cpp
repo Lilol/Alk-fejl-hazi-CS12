@@ -1,13 +1,12 @@
 #include "RobotCommand.h"
 
-
+RobotCommand::RobotCommand()
+:_command(RobotCommand::Command::Default), _accelerate_x(0), _accelerate_y(0)
+{}
 
 RobotCommand::RobotCommand(Command command, int accelerate_x, int accelerate_y)
     : _command(command), _accelerate_x(accelerate_x), _accelerate_y(accelerate_y)
-{
-
-}
-
+{}
 
 void RobotCommand::WriteTo(QDataStream& stream) const
 {
@@ -24,7 +23,6 @@ void RobotCommand::ReadFrom(QDataStream& stream)
     stream >> _accelerate_x;
     stream >> _accelerate_y;
 }
-
 
 QDataStream &operator<<(QDataStream& stream, const RobotCommand& command)
 {

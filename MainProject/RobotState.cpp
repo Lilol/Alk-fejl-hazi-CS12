@@ -89,6 +89,3 @@ QDataStream &operator>>(QDataStream& stream, RobotState& state)
     state.ReadFrom(stream);
     return stream;
 }
-
-    return stream;
-    return stream;

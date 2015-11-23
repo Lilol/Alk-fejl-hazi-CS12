@@ -26,7 +26,8 @@ SOURCES += main.cpp\
         TcpCommunication/TcpCommunication.cpp \
     TcpCommunication/TcpSocketClient.cpp \
     TcpCommunication/TcpSocketServer.cpp \
-    MainApplication.cpp
+    MainApplication.cpp \
+    Simulator.cpp
 
 HEADERS  += \
             RobotState.h \
@@ -34,6 +35,7 @@ HEADERS  += \
             TcpCommunication/TcpCommunication.h \
     TcpCommunication/TcpSocketClient.h \
     TcpCommunication/TcpSocketServer.h \
-    MainApplication.h
+    MainApplication.h \
+    Simulator.h
 
 FORMS    += MainWindow.ui

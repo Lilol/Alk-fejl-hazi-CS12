@@ -20,13 +20,10 @@ public:
         Default = 4,
     };
 
-
     RobotCommand();
     RobotCommand(Command command, int accelerate_x, int accelerate_y);
 
     ~RobotCommand() = default;
-
-
 
     /** Parancs */
     Q_PROPERTY(Command command READ command WRITE setCommand MEMBER _command NOTIFY commandChanged)
@@ -51,12 +48,19 @@ public:
 
 signals:
     void commandChanged();
+    void accelerate_xChanged();
+    void accelerate_yChanged();
 
 private:
     Command _command;
     int _accelerate_x;
     int _accelerate_y;
-
 };
+
+/** Beburkolja a RobotCommand.WriteTo metódust. */
+QDataStream &operator<<(QDataStream &, const RobotCommand &);
+
+/** Beburkolja a RobotCommand.ReadFrom metódust. */
+QDataStream &operator>>(QDataStream &, RobotCommand &);
 
 #endif // ROBOT_COMMAND_H

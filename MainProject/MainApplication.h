@@ -3,6 +3,7 @@
 #define MAIN_APPLICATION_H
 
 #include "TcpCommunication/TcpSocketClient.h"
+#include "Simulator.h"
 #include <QApplication>
 #include <QQmlApplicationEngine>
 
@@ -19,7 +20,7 @@ public:
     ~MainApplication() = default;
 
 private:
-    //Simulator simulator;
+    Simulator simulator;
     QQmlApplicationEngine engine;
     //RobotStateHistory history;
     TcpSocketClient communication;

@@ -14,6 +14,5 @@ CONFIG   -= app_bundle
 
 TEMPLATE = app
 
-
 SOURCES += tst_UnitTests.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"

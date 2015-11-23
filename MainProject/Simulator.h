@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QTimer>
 #include <QDebug>
-#include "Communication/CommunicationTcpSocketServer.h"
+#include "TcpCommunication/TcpSocketServer.h"
 #include "RobotState.h"
 #include "RobotCommand.h"
 
@@ -34,7 +34,7 @@ public:
 
 private:
     /** Belső szerver a kommunikációhoz. */
-    CommunicationTcpSocketServer communication;
+    TcpSocketServer communication;
 
     /** Időzítő a tick() metódus periodikus hívására. */
     QTimer timer;

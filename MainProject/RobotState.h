@@ -164,10 +164,10 @@ QDataStream &operator<<(QDataStream &, const RobotState &);
 /** Beburkolja a RobotState.ReadFrom metódust. */
 QDataStream &operator>>(QDataStream &, RobotState &);
 
-/** Vektor szerializálása a streambe. */
-QDataStream &operator<<(QDataStream &, const QVector<bool>& sensors);
+/*Vektor szerializálása a streambe.
+QDataStream &operator<<(QDataStream &, const QVector<float>& sensors);
 
-/** Vektor kiolvasása a streamből. */
-QDataStream &operator>>(QDataStream &, QVector<bool> &);
+Vektor kiolvasása a streamből.
+QDataStream &operator>>(QDataStream &, QVector<float> &);*/
 
 #endif // ROBOTSTATE_H

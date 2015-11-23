@@ -19,6 +19,5 @@ public:
 private:
     /** A belső QTcpSocket példány. */
     QTcpSocket socket;
-
 };
 #endif // TCP_SOCKET_CLIENT_H
