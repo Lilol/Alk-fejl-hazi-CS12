@@ -39,3 +39,10 @@ HEADERS  += \
     Simulator.h
 
 FORMS    += MainWindow.ui
+
+DISTFILES += \
+    main.qml \
+    KeyHandler.qml \
+    Speedmeter.qml \
+    Buttons.qml \
+    help_window.qml
