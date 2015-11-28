@@ -3,8 +3,13 @@ import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.4
 import QtQuick.Controls.Styles 1.4
 
+/*///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//This file contains the pressbuttons. Each button change their appererance when pressed. Upon clicking they trigger
+// the proper signal.
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
 Column {
-    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.right: parent.right
     anchors.verticalCenter: parent.verticalCenter
     spacing: parent.parent.height/30
     Button {

@@ -45,4 +45,7 @@ DISTFILES += \
     KeyHandler.qml \
     Speedmeter.qml \
     Buttons.qml \
-    help_window.qml
+    help_window.qml \
+    HistoryGraph.qml \
+    LogList.qml \
+    MapImage.qml
