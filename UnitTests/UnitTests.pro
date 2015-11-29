@@ -8,11 +8,23 @@ QT       += testlib
 
 QT       -= gui
 
+QT += network
+
+CONFIG += c++14
+QMAKE_CXXFLAGS_CXX11    = -std=c++1y
+
 TARGET = tst_UnitTests
 CONFIG   += console
 CONFIG   -= app_bundle
 
+include(../deployment.pri)
+
 TEMPLATE = app
 
-SOURCES += tst_UnitTests.cpp
+SOURCES += \
+    SimulatorTester.cpp \
+    CommunicationTester.cpp
+
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
+
+

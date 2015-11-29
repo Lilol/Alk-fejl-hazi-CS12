@@ -23,3 +23,5 @@ android-no-sdk {
     }
     INSTALLS += target
 }
+
+INCLUDEPATH += $$PWD/MainProject

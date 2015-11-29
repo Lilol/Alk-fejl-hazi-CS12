@@ -15,10 +15,11 @@ CONFIG += c++14
 QMAKE_CXXFLAGS_CXX11    = -std=c++1y
 
 QT += qml quick widgets
+QT += network
 QT += serialport
 
 # Default rules for deployment.
-# include(deployment.pri)
+include(../deployment.pri)
 
 SOURCES += main.cpp\
         RobotState.cpp \

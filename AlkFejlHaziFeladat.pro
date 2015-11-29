@@ -4,4 +4,4 @@ SUBDIRS += \
     MainProject \
     UnitTests
 
-
+CONFIG += ordered

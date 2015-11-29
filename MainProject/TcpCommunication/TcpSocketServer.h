@@ -1,6 +1,6 @@
 #pragma once
-#ifndef TCPSOCKETSERVER_H
-#define TCPSOCKETSERVER_H
+#ifndef TCP_SOCKET_SERVER_H
+#define TCP_SOCKET_SERVER_H
 
 #include <QTcpServer>
 #include "TcpCommunication.h"
@@ -37,4 +37,4 @@ private slots:
     void disconnected();
 };
 
-#endif // TCPSOCKETSERVER_H
+#endif // TCP_SOCKET_SERVER_H
