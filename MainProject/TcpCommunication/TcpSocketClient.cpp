@@ -8,10 +8,9 @@ void TcpSocketClient::connect(QString url, int port)
     socket.connectToHost(url, port, QIODevice::ReadWrite);
     //Csatlakozás a hosthoz.
     //Ha nem tud csatlakozni, a debug ablakban jelzi.
-    if(socket.state() != QAbstractSocket::SocketState::ConnectedState)
+    if(!socket.waitForConnected(5000))
     {
-        qDebug() << "Error: Socket cannot connect to host!" << endl;
-        emit socket.error();
+        qDebug() << "Error: " << socket.errorString();
     }
     setSocket(&socket);
 }

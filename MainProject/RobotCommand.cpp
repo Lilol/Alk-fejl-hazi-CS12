@@ -35,3 +35,18 @@ QDataStream &operator>>(QDataStream& stream, RobotCommand& command)
     command.ReadFrom(stream);
     return stream;
 }
+
+void RobotCommand::setStatus(RobotCommand::Command command)
+{
+    _command = command;
+}
+
+void RobotCommand::setAccelerationX(int a_x)
+{
+     _accelerate_x = a_x;
+}
+
+void RobotCommand::setAccelerationY(int a_y)
+{
+    _accelerate_y = a_y;
+}

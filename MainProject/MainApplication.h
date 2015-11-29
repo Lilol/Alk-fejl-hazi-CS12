@@ -4,6 +4,9 @@
 
 #include "TcpCommunication/TcpSocketClient.h"
 #include "Simulator.h"
+#include "RobotProxy.h"
+#include "MainWindowsEventHandling.h"
+#include "RobotStateHistory.h"
 #include <QApplication>
 #include <QQmlApplicationEngine>
 
@@ -22,9 +25,9 @@ public:
 private:
     Simulator simulator;
     QQmlApplicationEngine engine;
-    //RobotStateHistory history;
+    RobotStateHistory history;
     TcpSocketClient communication;
-    //RobotProxy robot;
-    //MainWindowsEventHandling handler;
+    RobotProxy robot;
+    MainWindowsEventHandling handler;
 };
 #endif // MAIN_APPLICATION_H

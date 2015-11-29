@@ -27,7 +27,10 @@ SOURCES += main.cpp\
     TcpCommunication/TcpSocketClient.cpp \
     TcpCommunication/TcpSocketServer.cpp \
     MainApplication.cpp \
-    Simulator.cpp
+    Simulator.cpp \
+    MainWindowsEventHandling.cpp \
+    RobotProxy.cpp \
+    RobotStateHistory.cpp
 
 HEADERS  += \
             RobotState.h \
@@ -36,7 +39,10 @@ HEADERS  += \
     TcpCommunication/TcpSocketClient.h \
     TcpCommunication/TcpSocketServer.h \
     MainApplication.h \
-    Simulator.h
+    Simulator.h \
+    MainWindowsEventHandling.h \
+    RobotProxy.h \
+    RobotStateHistory.h
 
 FORMS    += MainWindow.ui
 

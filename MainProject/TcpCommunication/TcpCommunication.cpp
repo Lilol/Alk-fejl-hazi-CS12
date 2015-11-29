@@ -37,6 +37,7 @@ bool TcpCommunication::isConnected() const
     {
         return false;
     }
+    qDebug() << socket->state();
     return socket->state() == QTcpSocket::ConnectedState;
 }
 

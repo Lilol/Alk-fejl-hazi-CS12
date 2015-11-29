@@ -1,6 +1,6 @@
 #pragma once
-#ifndef ROBOTSTATE_H
-#define ROBOTSTATE_H
+#ifndef ROBOT_STATE_H
+#define ROBOT_STATE_H
 
 #include <QDataStream>
 #include <QString>
@@ -45,9 +45,13 @@ public:
      * @brief Konstruktor adott értékekkel.
      * @param status    Robot állapot
      * @param timestamp Időbélyeg
-     * @param x Pozíció
-     * @param v Sebesség
-     * @param a Gyorsulás
+     * @param x X-irányú pozíció
+     * @param y Y-irányú pozíció
+     * @param vx X-irányú sebesség
+     * @param vy Y-irányú sebesség
+     * @param ax X-irányú gyorsulás
+     * @param ay Y-irányú gyorsulás
+     * @param sensors Faltávolság-érzékelők állapota
      * @param light Robot lámpájának állapota
      */
     RobotState(Status status, qint64 timestamp,
@@ -140,14 +144,14 @@ signals:
 private:
     Status _status;
     qint64 _timestamp;
-    float _x;   /** X Pozíció (m) */
-    float _y;	/** Y Pozíció */
-    float _vx;   /** Sebesség (m/s) */
-	float _vy;
-    float _ax;   /** X irányú Gyorsulás (m/s2) */
-	float _ay;
-    qint8 _light;
-	QVector<float> _sensors;
+    float _x;   /** X-irányú pozíció (m) */
+    float _y;	/** Y-irányú pozíció */
+    float _vx;   /** X-irányú sebesség (m/s) */
+    float _vy;  /** Y-irányú sebesség (m/s) */
+    float _ax;   /** X-irányú Gyorsulás (m/s2) */
+    float _ay;  /** Y-irányú Gyorsulás (m/s2) */
+    qint8 _light;   /** Robot lámpáinak állapota */
+    QVector<float> _sensors;  /** Faltávolság-szenzorok értékei */
 	
 	
     /** Az állapotok és szöveges verziójuk közti megfeleltetés.
@@ -170,4 +174,4 @@ QDataStream &operator<<(QDataStream &, const QVector<float>& sensors);
 Vektor kiolvasása a streamből.
 QDataStream &operator>>(QDataStream &, QVector<float> &);*/
 
-#endif // ROBOTSTATE_H
+#endif // ROBOT_STATE_H

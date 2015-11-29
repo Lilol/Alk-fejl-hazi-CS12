@@ -13,6 +13,13 @@ import QtQuick.Extras 1.4
 
 ApplicationWindow {
 
+    signal resetCommandCpp()
+    signal accelerateXCommandCpp(integer acceleration_x)
+    signal accelerateYCommandCpp(integer acceleration_y)
+    signal stopCommandCpp()
+    signal defaultCommandCpp()
+    signal testCommandCpp()
+
     id: app_window
     title: qsTr("Simulator GUI")
     minimumWidth: 800

@@ -1,14 +1,14 @@
 #include "MainApplication.h"
 
 MainApplication::MainApplication(int argc, char *argv[])
-    : QApplication(argc, argv), simulator(3333), /* engine(), /*history(),*/ communication()
-      /*robot(history, communication),*/ /*handler(robot, *engine.rootContext(), history)*/
+    : QApplication(argc, argv), simulator(12345), engine(), history(), communication(),
+      robot(history, communication), handler(robot, *engine.rootContext(), history)
 {
     // Szimulátor indítása
     simulator.start(1.0F);
 
     // Csatlakozás a szimulátorhoz.
-    communication.connect(QStringLiteral("localhost"),3333);
+    communication.connect(QStringLiteral("localhost"),12345);
 
     // Szimulálunk egy history változást, mert attól kezdve léteznek a QML oldalon
     //  a C++ oldalról származó változók. (Különben referencia hibákat kapnánk a QML oldalon
@@ -27,13 +27,19 @@ MainApplication::MainApplication(int argc, char *argv[])
     // A QML környezet is felállt, bekötjük a signalokat a QML és C++ oldal között.
     QObject *rootObject = rootObjects[0];
     // A handler beköti a saját signaljait.
-    //handler.ConnectQmlSignals(rootObject);
+    handler.ConnectQmlSignals(rootObject);
 
     // Bekötjük a nyomógombok signaljait.
-    /*QObject::connect(rootObject, SIGNAL(resetCommandCpp()),
+    QObject::connect(rootObject, SIGNAL(resetCommandCpp()),
                      &handler, SLOT(resetCommand()));
-    QObject::connect(rootObject, SIGNAL(accelerateCommandCpp()),
-                     &handler, SLOT(accelerateCommand()));
+    QObject::connect(rootObject, SIGNAL(accelerateXCommandCpp(int)),
+                     &handler, SLOT(accelerateXCommand(int)));
+    QObject::connect(rootObject, SIGNAL(accelerateYCommandCpp(int)),
+                     &handler, SLOT(accelerateYCommand(int)));
     QObject::connect(rootObject, SIGNAL(stopCommandCpp()),
-                     &handler, SLOT(stopCommand()));*/
+                     &handler, SLOT(stopCommand()));
+    QObject::connect(rootObject, SIGNAL(testCommandCpp()),
+                     &handler, SLOT(testCommand()));
+    QObject::connect(rootObject, SIGNAL(defaultCommandCpp()),
+                     &handler, SLOT(defaultCommand()));
 }

@@ -25,6 +25,21 @@ public:
 
     ~RobotCommand() = default;
 
+    /**
+     * @brief Command változó beállítása.
+     */
+    void setStatus(RobotCommand::Command command);
+
+    /**
+     * @brief X irányú gyorsulás beállítása.
+     */
+    void setAccelerationX(int a_x);
+
+    /**
+     * @brief Y irányú gyorsulás beállítása.
+     */
+    void setAccelerationY(int a_y);
+
     /** Parancs */
     Q_PROPERTY(Command command READ command WRITE setCommand MEMBER _command NOTIFY commandChanged)
     Command command() const { return _command; }
