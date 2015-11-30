@@ -6,15 +6,20 @@ import QtQuick 2.5
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
 Canvas {
+    property var position_x;
+    property var position_y;
+    property var speed_x;
+    property var speed_y;
+
     id:canvas
     onPaint: {
         var context = getContext("2d");
         //Refresh the orientation
-        var alpha = getAngle(app_window.speed_y, app_window.speed_x);
+        var alpha = getAngle(speed_y, speed_x);
         //The canvas should be reset as the drawCar function rotates the canvas
         context.reset();
         drawBackground(context);
-        drawCar(context, app_window.position_x, app_window.position_y, 20, 40, alpha);
+        drawCar(context, position_x, position_y, 20, 40, alpha);
 
     }
 

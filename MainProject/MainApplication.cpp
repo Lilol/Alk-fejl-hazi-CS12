@@ -32,10 +32,10 @@ MainApplication::MainApplication(int argc, char *argv[])
     // Bekötjük a nyomógombok signaljait.
     QObject::connect(rootObject, SIGNAL(resetCommandCpp()),
                      &handler, SLOT(resetCommand()));
-    QObject::connect(rootObject, SIGNAL(accelerateXCommandCpp(int)),
-                     &handler, SLOT(accelerateXCommand(int)));
-    QObject::connect(rootObject, SIGNAL(accelerateYCommandCpp(int)),
-                     &handler, SLOT(accelerateYCommand(int)));
+    QObject::connect(rootObject, SIGNAL(accelerateXCommandCpp()),
+                     &handler, SLOT(accelerateXCommand()));
+    QObject::connect(rootObject, SIGNAL(accelerateYCommandCpp()),
+                     &handler, SLOT(accelerateYCommand()));
     QObject::connect(rootObject, SIGNAL(stopCommandCpp()),
                      &handler, SLOT(stopCommand()));
     QObject::connect(rootObject, SIGNAL(testCommandCpp()),

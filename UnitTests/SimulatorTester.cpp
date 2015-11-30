@@ -13,6 +13,9 @@ private Q_SLOTS:
     void testWallDistance();
     void testAccelerationX();
     void testAccelerationY();
+
+private:
+    Simulator simulator;
 };
 
 SimulatorTester::SimulatorTester()

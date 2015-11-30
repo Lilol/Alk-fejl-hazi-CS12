@@ -41,10 +41,10 @@ public:
 
 public slots:
     /** @brief X-irányú gyorsulási parancsot küld a robotnak. A gyorsítási nyomógomb eseménykezelője. */
-    void accelerateXCommand(int a_x);
+    void accelerateXCommand();
 
     /** @brief Y-irányú gyorsulási parancsot küld a robotnak. A gyorsítási nyomógomb eseménykezelője. */
-    void accelerateYCommand(int a_y);
+    void accelerateYCommand();
 
     /** @brief A Stop nyomógomb eseménykezelője. */
     void stopCommand();

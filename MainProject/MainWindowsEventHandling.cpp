@@ -13,14 +13,14 @@ MainWindowsEventHandling::MainWindowsEventHandling(
     QObject::connect(&history, SIGNAL(historyChanged()), this, SLOT(historyChanged()));
 }
 
-void MainWindowsEventHandling::accelerateXCommand(int a_x)
+void MainWindowsEventHandling::accelerateXCommand()
 {
-    robot.accelerate_x(a_x);
+    robot.accelerate_x(1);
 }
 
-void MainWindowsEventHandling::accelerateYCommand(int a_y)
+void MainWindowsEventHandling::accelerateYCommand()
 {
-    robot.accelerate_y(a_y);
+    robot.accelerate_y(1);
 }
 
 void MainWindowsEventHandling::stopCommand()
@@ -50,8 +50,17 @@ void MainWindowsEventHandling::historyChanged()
     qmlContext.setContextProperty(QStringLiteral("currentState"), QVariant::fromValue(history.currentState));
 
     qmlContext.setContextProperty(QStringLiteral("historyGraphTimestamps"), QVariant::fromValue(history.graphTimestamps));
-    qmlContext.setContextProperty(QStringLiteral("historyGraphVelocity"), QVariant::fromValue(history.graphVelocities));
-    qmlContext.setContextProperty(QStringLiteral("historyGraphAcceleration"), QVariant::fromValue(history.graphAccelerations));
+    qmlContext.setContextProperty(QStringLiteral("historyGraphVelocityX"), QVariant::fromValue(history.graphVelocitiesX));
+    qmlContext.setContextProperty(QStringLiteral("historyGraphVelocityY"), QVariant::fromValue(history.graphVelocitiesY));
+    qmlContext.setContextProperty(QStringLiteral("historyGraphAccelerationX"), QVariant::fromValue(history.graphAccelerationsX));
+    qmlContext.setContextProperty(QStringLiteral("historyGraphAccelerationY"), QVariant::fromValue(history.graphAccelerationsY));
+
+    qmlContext.setContextProperty(QStringLiteral("currentPositionY"), QVariant::fromValue(history.graphPositionsY[history.graphPositionsX.length()-1]));
+    qmlContext.setContextProperty(QStringLiteral("currentPositionX"), QVariant::fromValue(history.graphPositionsX[history.graphPositionsY.length()-1]));
+    qmlContext.setContextProperty(QStringLiteral("currentSpeedX"), QVariant::fromValue(history.graphVelocitiesX[history.graphVelocitiesX.length()-1]));
+    qmlContext.setContextProperty(QStringLiteral("currentSpeedY"), QVariant::fromValue(history.graphVelocitiesY[history.graphVelocitiesY.length()-1]));
+    qmlContext.setContextProperty(QStringLiteral("currentAccelerationX"), QVariant::fromValue(history.graphAccelerationsY[history.graphAccelerationsY.length()-1]));
+    qmlContext.setContextProperty(QStringLiteral("currentAccelerationY"), QVariant::fromValue(history.graphAccelerationsX[history.graphAccelerationsX.length()-1]));
 
     // Jelzünk a QML controloknak, hogy újrarajzolhatják magukat, beállítottuk az új értékeket.
     emit historyContextUpdated();

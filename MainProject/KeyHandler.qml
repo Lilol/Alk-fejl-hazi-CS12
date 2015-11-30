@@ -9,6 +9,10 @@ import QtQuick.Dialogs 1.2
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
 Item{
+    //TODO: ????
+    signal accelerateXCommand;
+    signal accelerateYCommand;
+
     id:key_logging
     focus: true
 

@@ -22,8 +22,7 @@ include(../deployment.pri)
 TEMPLATE = app
 
 SOURCES += \
-    SimulatorTester.cpp \
-    CommunicationTester.cpp
+    SimulatorTester.cpp
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 

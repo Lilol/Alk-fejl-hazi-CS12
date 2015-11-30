@@ -9,6 +9,11 @@ import QtQuick.Controls.Styles 1.4
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
 Column {
+    signal resetCommand;
+    signal stopCommand;
+    signal testCommand;
+    //signal lampCommand;
+
     anchors.right: parent.right
     anchors.verticalCenter: parent.verticalCenter
     spacing: parent.parent.height/30
@@ -27,7 +32,7 @@ Column {
                 }
             }
         }
-        //onClicked: "asd"
+        //onClicked: lampCommand();
     }
     Button {
         text: "Reset"
@@ -44,7 +49,7 @@ Column {
                 }
             }
         }
-        //onClicked: "asd"
+        onClicked: resetCommand();
     }
     Button {
         text: "Calibration"
@@ -61,7 +66,7 @@ Column {
                 }
             }
         }
-        //onClicked: "asd"
+        onClicked: testCommand();
     }
 }
 

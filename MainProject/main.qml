@@ -14,8 +14,8 @@ import QtQuick.Extras 1.4
 ApplicationWindow {
 
     signal resetCommandCpp()
-    signal accelerateXCommandCpp(integer acceleration_x)
-    signal accelerateYCommandCpp(integer acceleration_y)
+    signal accelerateXCommandCpp()
+    signal accelerateYCommandCpp()
     signal stopCommandCpp()
     signal defaultCommandCpp()
     signal testCommandCpp()
@@ -36,13 +36,6 @@ ApplicationWindow {
     property bool rotation_right: false
     property bool move_forward: false
     property bool move_backward: false
-
-    property real position_x: 400
-    property real position_y: 300
-    property real speed_x: 0
-    property real speed_y: 0
-    property real acceleration_x: 0
-    property real acceleration_y: 0
 
     //Menubar
     menuBar: MenuBar
@@ -92,7 +85,8 @@ ApplicationWindow {
             visible: true
 
             SpeedMeter {
-
+                    speed_x : currentSpeedX
+                    speed_y : currentSpeedY
             }
         }
 
@@ -117,6 +111,10 @@ ApplicationWindow {
         anchors.right: parent.right
         anchors.top: parent.top
 
+        position_x : currentPositionX
+        position_y : currentPositionY
+        speed_x : currentSpeedX
+        speed_y : currentSpeedY
     }
 
     //Handling the input keys
@@ -137,11 +135,19 @@ ApplicationWindow {
             anchors.bottomMargin: parent.height * 0.1
             anchors.leftMargin: parent.width * 0.3
             anchors.rightMargin: parent.width * 0.3
+
+            position_x : currentPositionX
+            position_y : currentPositionY
+            speed_y : currentSpeedY
+            speed_x : currentSpeedX
+            acceleration_x : currentAccelerationX
+            acceleration_y : currentAccelerationY
             }
     }
 
     //Graph
     HistoryGraph {
+        objectName: "historyGraph"
         width: parent.width * 0.5
         height: parent.height * 0.3
         anchors.left: parent.left
@@ -149,6 +155,34 @@ ApplicationWindow {
         anchors.leftMargin: 10
         //It can be buggy, if the window crashes, delete this line
         anchors.bottomMargin: 3
+
+        graphTimestamps: historyGraphTimestamps
+        graphVelocitiesX: historyGraphVelocityX
+        graphVelocitiesY: historyGraphVelocityY
+        graphAccelerationsX: historyGraphAccelerationX
+        graphAccelerationsY: historyGraphAccelerationY
     }
+
+    onResetCommand: {
+        resetCommandCpp();
+    }
+    onAccelerateXCommand: {
+        accelerateXCommandCpp();
+    }
+    onAccelerateYCommand: {
+        accelerateYCommandCpp();
+    }
+    onStopCommand: {
+        stopCommandCpp();
+    }
+    onDefaultCommand: {
+        defaultCommandCpp();
+    }
+    onTestCommand: {
+        testCommandCpp();
+    }
+    /*onLampCommand:{
+        lampCommandCpp();
+    }*/
 }
 
