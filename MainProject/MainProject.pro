@@ -50,9 +50,9 @@ FORMS    += MainWindow.ui
 DISTFILES += \
     main.qml \
     KeyHandler.qml \
-    Speedmeter.qml \
     Buttons.qml \
     help_window.qml \
     HistoryGraph.qml \
     LogList.qml \
-    MapImage.qml
+    MapImage.qml \
+    SpeedMeter.qml

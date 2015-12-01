@@ -15,7 +15,7 @@ MainApplication::MainApplication(int argc, char *argv[])
     //  egészen addig, amíg az első üzenet meg nem jönne a szimulátortól.
     //handler.historyChanged();
 
-    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+    engine.load(QUrl(QStringLiteral("main.qml")));
 
     // A QML gyökérelemre szükségünk van ahhoz, hogy tudjunk hivatkozni a QML-es elemekre.
     auto rootObjects = engine.rootObjects();
@@ -32,10 +32,14 @@ MainApplication::MainApplication(int argc, char *argv[])
     // Bekötjük a nyomógombok signaljait.
     QObject::connect(rootObject, SIGNAL(resetCommandCpp()),
                      &handler, SLOT(resetCommand()));
-    QObject::connect(rootObject, SIGNAL(accelerateXCommandCpp(int)),
-                     &handler, SLOT(accelerateXCommand(int)));
-    QObject::connect(rootObject, SIGNAL(accelerateYCommandCpp(int)),
-                     &handler, SLOT(accelerateYCommand(int)));
+    QObject::connect(rootObject, SIGNAL(accelerateXCommandCpp()),
+                     &handler, SLOT(accelerateXCommand()));
+    QObject::connect(rootObject, SIGNAL(accelerateYCommandCpp()),
+                     &handler, SLOT(accelerateYCommand()));
+    QObject::connect(rootObject, SIGNAL(slowDownXCommandCpp()),
+                     &handler, SLOT(slowDownXCommand()));
+    QObject::connect(rootObject, SIGNAL(slowDownYCommandCpp()),
+                     &handler, SLOT(slowDownYCommand()));
     QObject::connect(rootObject, SIGNAL(stopCommandCpp()),
                      &handler, SLOT(stopCommand()));
     QObject::connect(rootObject, SIGNAL(testCommandCpp()),

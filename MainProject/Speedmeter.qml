@@ -11,6 +11,8 @@ import QtQuick.Extras 1.4
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
 CircularGauge {
+    property var speed_x;
+    property var speed_y;
 
     //Positioning and property settings. With the parent fill the speedmeter scales when the window is resized.
     anchors.right: parent.right
@@ -22,7 +24,7 @@ CircularGauge {
     stepSize: 0.1
 
     //As the modell is moving on a plane the speed is calculated from Pythagoras theorem
-    value: Math.sqrt(Math.pow(app_window.speed_x, 2) + Math.pow(app_window.speed_y, 2))
+    value: Math.sqrt(Math.pow(speed_x, 2) + Math.pow(speed_y, 2))
 
     style: CircularGaugeStyle {
         labelInset: outerRadius * 0.2

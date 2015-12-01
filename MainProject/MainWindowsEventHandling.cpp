@@ -13,14 +13,24 @@ MainWindowsEventHandling::MainWindowsEventHandling(
     QObject::connect(&history, SIGNAL(historyChanged()), this, SLOT(historyChanged()));
 }
 
-void MainWindowsEventHandling::accelerateXCommand(int a_x)
+void MainWindowsEventHandling::accelerateXCommand()
 {
-    robot.accelerate_x(a_x);
+    robot.accelerate_x(1);
 }
 
-void MainWindowsEventHandling::accelerateYCommand(int a_y)
+void MainWindowsEventHandling::accelerateYCommand()
 {
-    robot.accelerate_y(a_y);
+    robot.accelerate_y(1);
+}
+
+void MainWindowsEventHandling::slowDownYCommand()
+{
+    robot.accelerate_y(-1);
+}
+
+void MainWindowsEventHandling::slowDownXCommand()
+{
+    robot.accelerate_x(-1);
 }
 
 void MainWindowsEventHandling::stopCommand()
@@ -49,9 +59,11 @@ void MainWindowsEventHandling::historyChanged()
     qmlContext.setContextProperty(QStringLiteral("historyModel"), QVariant::fromValue(history.stateList));
     qmlContext.setContextProperty(QStringLiteral("currentState"), QVariant::fromValue(history.currentState));
 
-    qmlContext.setContextProperty(QStringLiteral("historyGraphTimestamps"), QVariant::fromValue(history.graphTimestamps));
-    qmlContext.setContextProperty(QStringLiteral("historyGraphVelocity"), QVariant::fromValue(history.graphVelocities));
-    qmlContext.setContextProperty(QStringLiteral("historyGraphAcceleration"), QVariant::fromValue(history.graphAccelerations));
+    qmlContext.setContextProperty(QStringLiteral("historyGraphTimestamp"), QVariant::fromValue(history.graphTimestamps));
+    qmlContext.setContextProperty(QStringLiteral("historyGraphVelocityX"), QVariant::fromValue(history.graphVelocitiesX));
+    qmlContext.setContextProperty(QStringLiteral("historyGraphVelocityY"), QVariant::fromValue(history.graphVelocitiesY));
+    qmlContext.setContextProperty(QStringLiteral("historyGraphAccelerationX"), QVariant::fromValue(history.graphAccelerationsX));
+    qmlContext.setContextProperty(QStringLiteral("historyGraphAccelerationY"), QVariant::fromValue(history.graphAccelerationsY));
 
     // Jelzünk a QML controloknak, hogy újrarajzolhatják magukat, beállítottuk az új értékeket.
     emit historyContextUpdated();
@@ -93,5 +105,15 @@ void MainWindowsEventHandling::ConnectQmlSignals(QObject *rootObject)
     else
     {
         qDebug() << "HIBA: Nem találom a historyGraph objektumot a QML környezetben.";
+    }
+
+    QQuickItem *mapImage = FindItemByName(rootObject,QString("mapImage"));
+    if(mapImage)
+    {
+        QObject::connect(this, SIGNAL(historyContextUpdated()), mapImage, SLOT(requestPaint()));
+    }
+    else
+    {
+        qDebug() << "HIBA: Nem találom a mapImage objektumot a QML környezetben.";
     }
 }

@@ -9,7 +9,7 @@ RobotState::RobotState()
 }
 
 RobotState::RobotState(Status status, qint64 timestamp,
-    float x, float y, float vx, float vy, float ax, float ay, qint8 light, QVector<float> sensors)
+    float x, float y, float vx, float vy, float ax, float ay, bool light, QList<float> sensors)
     : _status(status), _timestamp(timestamp), _x(x), _y(y), _vx(vx), _vy(vy), _ax(ax), _ay(ay), _light(light), _sensors(sensors)
 {
     initStatusNames();
@@ -20,10 +20,10 @@ void RobotState::initStatusNames()
     if (statusNames.empty())
     {
         // Még nincsen inicializálva.
-        statusNames[(int)Status::Accelerate] = QString("Gyorsítás");
-        statusNames[(int)Status::Default] = QString("Alap");
-        statusNames[(int)Status::Reset] = QString("Reset");
-        statusNames[(int)Status::Stopping] = QString("Megállás");
+        statusNames[(int)Status::Accelerate] = QString("acceleration");
+        statusNames[(int)Status::Default] = QString("default");
+        statusNames[(int)Status::Reset] = QString("reset");
+        statusNames[(int)Status::Stopping] = QString("stopping");
     }
 }
 

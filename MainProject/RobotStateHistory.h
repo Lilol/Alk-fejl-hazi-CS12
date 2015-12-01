@@ -46,8 +46,12 @@ public:
      *  @{
      */
     QList<int> graphTimestamps;
-    QList<std::pair<int, int>> graphVelocities;
-    QList<std::pair<int, int>> graphAccelerations;
+    QList<int> graphVelocitiesX;
+    QList<int> graphVelocitiesY;
+    QList<int> graphAccelerationsX;
+    QList<int> graphAccelerationsY;
+    QList<int> graphPositionsX;
+    QList<int> graphPositionsY;
     /** @}*/
 
     /** A megjelenítendő állapotok száma. */

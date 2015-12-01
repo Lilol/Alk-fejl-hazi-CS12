@@ -14,8 +14,10 @@ import QtQuick.Extras 1.4
 ApplicationWindow {
 
     signal resetCommandCpp()
-    signal accelerateXCommandCpp(integer acceleration_x)
-    signal accelerateYCommandCpp(integer acceleration_y)
+    signal accelerateXCommandCpp()
+    signal accelerateYCommandCpp()
+    signal slowDownXCommandCpp()
+    signal slowDownYCommandCpp()
     signal stopCommandCpp()
     signal defaultCommandCpp()
     signal testCommandCpp()
@@ -29,20 +31,12 @@ ApplicationWindow {
 
     //Properties of the robot
     property bool reset: false
-    property bool lamp: false
     property bool calibration: false
 
     property bool rotation_left: false
     property bool rotation_right: false
     property bool move_forward: false
     property bool move_backward: false
-
-    property real position_x: 400
-    property real position_y: 300
-    property real speed_x: 0
-    property real speed_y: 0
-    property real acceleration_x: 0
-    property real acceleration_y: 0
 
     //Menubar
     menuBar: MenuBar
@@ -92,7 +86,8 @@ ApplicationWindow {
             visible: true
 
             SpeedMeter {
-
+                    speed_x : currentState.vx
+                    speed_y : currentState.vy
             }
         }
 
@@ -104,28 +99,54 @@ ApplicationWindow {
             visible: true
 
             Buttons {
-
+                    onStopCommand: {
+                        stopCommandCpp();
+                    }
+                    onTestCommand: {
+                        testCommandCpp();
+                    }
+                    onResetCommand: {
+                        resetCommandCpp();
+                    }
             }
         }
     }
 
     //Visual representation of the model and the map
     MapImage {
+        objectName: "mapImage"
         id: mapimage_outer_rectangle
         width: parent.width * 0.6
         height: parent.height * 0.65
         anchors.right: parent.right
         anchors.top: parent.top
 
+        position_x : currentState.x
+        position_y : currentState.y
+        speed_x : currentState.vx
+        speed_y : currentState.vy
     }
 
     //Handling the input keys
     KeyHandler {
         id: keyhandlercontrol
+        onAccelerateXCommand: {
+            accelerateXCommandCpp();
+        }
+        onAccelerateYCommand: {
+            accelerateYCommandCpp();
+        }
+        onSlowDownXCommand: {
+            slowDownXCommandCpp();
+        }
+        onSlowDownYCommand: {
+            slowDownYCommandCpp();
+        }
     }
 
     //Loglist
     Rectangle {
+        objectName: "logList"
         id: loglist_outer_rectangle
         anchors.left: parent.left
         anchors.right: mapimage_outer_rectangle.left
@@ -137,11 +158,25 @@ ApplicationWindow {
             anchors.bottomMargin: parent.height * 0.1
             anchors.leftMargin: parent.width * 0.3
             anchors.rightMargin: parent.width * 0.3
+
+            state : currentState.statusName
+            position_x : currentState.x
+            position_y : currentState.y
+            speed_y : currentState.vy
+            speed_x : currentState.vx
+            acceleration_X : currentState.ax
+            acceleration_y : currentState.ay
+            top_wall_distance : currentState.sensors[0]
+            bottom_wall_distance : currentState.sensors[2]
+            left_wall_distance : currentState.sensors[3]
+            right_wall_distance : currentState.sensors[1]
+            lamp : (currentState.light !== 0 ? "ON" : "OFF" )
             }
     }
 
     //Graph
     HistoryGraph {
+        objectName: "historyGraph"
         width: parent.width * 0.5
         height: parent.height * 0.3
         anchors.left: parent.left
@@ -149,6 +184,12 @@ ApplicationWindow {
         anchors.leftMargin: 10
         //It can be buggy, if the window crashes, delete this line
         anchors.bottomMargin: 3
+
+        graphTimestamps : historyGraphTimestamp
+        graphVelocitiesX : historyGraphVelocityX
+        graphVelocitiesY : historyGraphVelocityY
+        graphAccelerationsX : historyGraphAccelerationX
+        graphAccelerationsY : historyGraphAccelerationY
     }
 }
 
