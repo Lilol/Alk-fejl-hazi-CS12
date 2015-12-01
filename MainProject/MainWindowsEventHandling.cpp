@@ -23,6 +23,16 @@ void MainWindowsEventHandling::accelerateYCommand()
     robot.accelerate_y(1);
 }
 
+void MainWindowsEventHandling::slowDownYCommand()
+{
+    robot.accelerate_y(-1);
+}
+
+void MainWindowsEventHandling::slowDownXCommand()
+{
+    robot.accelerate_x(-1);
+}
+
 void MainWindowsEventHandling::stopCommand()
 {
     robot.stop();
@@ -54,13 +64,6 @@ void MainWindowsEventHandling::historyChanged()
     qmlContext.setContextProperty(QStringLiteral("historyGraphVelocityY"), QVariant::fromValue(history.graphVelocitiesY));
     qmlContext.setContextProperty(QStringLiteral("historyGraphAccelerationX"), QVariant::fromValue(history.graphAccelerationsX));
     qmlContext.setContextProperty(QStringLiteral("historyGraphAccelerationY"), QVariant::fromValue(history.graphAccelerationsY));
-
-    qmlContext.setContextProperty(QStringLiteral("currentPositionY"), QVariant::fromValue(history.graphPositionsY[history.graphPositionsX.length()-1]));
-    qmlContext.setContextProperty(QStringLiteral("currentPositionX"), QVariant::fromValue(history.graphPositionsX[history.graphPositionsY.length()-1]));
-    qmlContext.setContextProperty(QStringLiteral("currentSpeedX"), QVariant::fromValue(history.graphVelocitiesX[history.graphVelocitiesX.length()-1]));
-    qmlContext.setContextProperty(QStringLiteral("currentSpeedY"), QVariant::fromValue(history.graphVelocitiesY[history.graphVelocitiesY.length()-1]));
-    qmlContext.setContextProperty(QStringLiteral("currentAccelerationX"), QVariant::fromValue(history.graphAccelerationsY[history.graphAccelerationsY.length()-1]));
-    qmlContext.setContextProperty(QStringLiteral("currentAccelerationY"), QVariant::fromValue(history.graphAccelerationsX[history.graphAccelerationsX.length()-1]));
 
     // Jelzünk a QML controloknak, hogy újrarajzolhatják magukat, beállítottuk az új értékeket.
     emit historyContextUpdated();
@@ -102,5 +105,15 @@ void MainWindowsEventHandling::ConnectQmlSignals(QObject *rootObject)
     else
     {
         qDebug() << "HIBA: Nem találom a historyGraph objektumot a QML környezetben.";
+    }
+
+    QQuickItem *mapImage = FindItemByName(rootObject,QString("mapImage"));
+    if(mapImage)
+    {
+        QObject::connect(this, SIGNAL(historyContextUpdated()), mapImage, SLOT(requestPaint()));
+    }
+    else
+    {
+        qDebug() << "HIBA: Nem találom a mapImage objektumot a QML környezetben.";
     }
 }

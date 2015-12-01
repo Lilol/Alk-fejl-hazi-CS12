@@ -34,13 +34,12 @@ void Simulator::tick()
 	state.setVy(state.vy() + state.ay()*dt);
 	
 	// szenzor szimuláció
-	QVector<float> sensorTemp;
+    QList<float> sensorTemp;
     sensorTemp.append(300-state.y());
     sensorTemp.append(400-state.x());
     sensorTemp.append(300+state.y());
     sensorTemp.append(400+state.x());
 	state.setSensors(sensorTemp);
-	
 	
 	// pozíció szaturáció
 	if (state.x() > 400)
@@ -79,8 +78,7 @@ void Simulator::tick()
         state.setVy( 10.0F );
     }
 
-
-    state.setLight( state.vx()==10.0F ? 1.0F : 0.0F );
+    state.setLight( state.vx()==10.0F ? true : false );
 
     // Magasabb szintű funkciók
     switch(state.status())
@@ -138,8 +136,8 @@ void Simulator::tick()
     qDebug() << "Simulator: tick (" << state.timestamp()
              << "): állapot=" << state.getStatusName()
              << ", x=" << state.x()
-             << ", v=" << state.vx()
-             << ", a=" << state.ax()
+             << ", vx=" << state.vx()
+             << ", ax=" << state.ax()
              << ", lámpa:" << state.light();
 
     // Állapot küldése

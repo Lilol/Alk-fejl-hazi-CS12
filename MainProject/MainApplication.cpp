@@ -36,6 +36,10 @@ MainApplication::MainApplication(int argc, char *argv[])
                      &handler, SLOT(accelerateXCommand()));
     QObject::connect(rootObject, SIGNAL(accelerateYCommandCpp()),
                      &handler, SLOT(accelerateYCommand()));
+    QObject::connect(rootObject, SIGNAL(slowDownXCommandCpp()),
+                     &handler, SLOT(slowDownXCommand()));
+    QObject::connect(rootObject, SIGNAL(slowDownYCommandCpp()),
+                     &handler, SLOT(slowDownYCommand()));
     QObject::connect(rootObject, SIGNAL(stopCommandCpp()),
                      &handler, SLOT(stopCommand()));
     QObject::connect(rootObject, SIGNAL(testCommandCpp()),

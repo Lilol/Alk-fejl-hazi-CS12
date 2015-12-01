@@ -29,7 +29,7 @@ Canvas {
         repeat: true;
         running: true;
         onTriggered: {
-            canvas.requestPaint();
+            //canvas.requestPaint();
         }
     }
 

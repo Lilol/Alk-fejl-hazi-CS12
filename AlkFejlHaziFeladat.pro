@@ -1,7 +1,9 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-    MainProject \
-    UnitTests
+    MainProject\
+    UnitTests\
 
-CONFIG += ordered
+
+
+#CONFIG += ordered

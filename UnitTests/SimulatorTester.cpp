@@ -15,7 +15,7 @@ private Q_SLOTS:
     void testAccelerationY();
 
 private:
-    Simulator simulator;
+    //Simulator simulator;
 };
 
 SimulatorTester::SimulatorTester()
@@ -38,6 +38,6 @@ void SimulatorTester::testAccelerationY()
     QVERIFY2(true, "Failure");
 }
 
-//QTEST_APPLESS_MAIN(SimulatorTester)
+QTEST_APPLESS_MAIN(SimulatorTester)
 
 #include "SimulatorTester.moc"

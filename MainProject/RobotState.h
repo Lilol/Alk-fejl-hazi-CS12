@@ -4,7 +4,7 @@
 
 #include <QDataStream>
 #include <QString>
-#include <QVector>
+#include <QList>
 
 /**
  * @brief A robot teljes állapotleírása le egy adott időpillanatban.
@@ -55,7 +55,7 @@ public:
      * @param light Robot lámpájának állapota
      */
     RobotState(Status status, qint64 timestamp,
-        float x, float y, float vx, float vy, float ax, float ay, qint8 light, QVector<float> sensors);
+        float x, float y, float vx, float vy, float ax, float ay, bool light, QList<float> sensors);
 
     ~RobotState() = default;
 
@@ -103,13 +103,13 @@ public:
 
     /** A robot lámpájának állapota. */
     Q_PROPERTY(bool light READ light WRITE setLight MEMBER _light NOTIFY lightChanged)
-    float light() const { return _light; }
-    void setLight(float light) { _light = light; }
+    bool light() const { return _light; }
+    void setLight(bool light) { _light = light; }
 	
 	/** Szenzorok értéke. 4db faltávolság */
-    Q_PROPERTY(QVector<float> sensors READ sensors WRITE setSensors MEMBER _sensors NOTIFY sensorsChanged)
-    QVector<float> sensors() const { return _sensors; }
-    void setSensors(QVector<float> sensors) { _sensors = sensors; }
+    Q_PROPERTY(QList<float> sensors READ sensors WRITE setSensors MEMBER _sensors NOTIFY sensorsChanged)
+    QList<float> sensors() const { return _sensors; }
+    void setSensors(QList<float> sensors) { _sensors = sensors; }
 
     /** Az aktuális állapot QStringként. */
     // In QML, it will be accessible as model.statusName
@@ -150,8 +150,8 @@ private:
     float _vy;  /** Y-irányú sebesség (m/s) */
     float _ax;   /** X-irányú Gyorsulás (m/s2) */
     float _ay;  /** Y-irányú Gyorsulás (m/s2) */
-    qint8 _light;   /** Robot lámpáinak állapota */
-    QVector<float> _sensors;  /** Faltávolság-szenzorok értékei */
+    bool _light;   /** Robot lámpájának állapota */
+    QList<float> _sensors;  /** Faltávolság-szenzorok értékei */
 	
 	
     /** Az állapotok és szöveges verziójuk közti megfeleltetés.
@@ -169,9 +169,9 @@ QDataStream &operator<<(QDataStream &, const RobotState &);
 QDataStream &operator>>(QDataStream &, RobotState &);
 
 /*Vektor szerializálása a streambe.
-QDataStream &operator<<(QDataStream &, const QVector<float>& sensors);
+QDataStream &operator<<(QDataStream &, const QList<float>& sensors);
 
 Vektor kiolvasása a streamből.
-QDataStream &operator>>(QDataStream &, QVector<float> &);*/
+QDataStream &operator>>(QDataStream &, QList<float> &);*/
 
 #endif // ROBOT_STATE_H

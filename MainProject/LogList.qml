@@ -14,20 +14,26 @@ ScrollView {
     property var acceleration_X;
     property var position_X;
     property var position_y;
+    property var lamp;
 
     horizontalScrollBarPolicy: Qt.ScrollBarAsNeeded
     Column {
         spacing: loglist_outer_rectangle.height / 20
 
-        Text { text: "Position X: " + position_x.toFixed(3) }
-        Text { text: "Position Y: " + position_y.toFixed(3) }
-        Text { text: "Speed X: " + speed_x.toFixed(3) }
-        Text { text: "Speed Y: " + speed_y.toFixed(3) }
-        Text { text: "Acceleration X: " + acceleration_x.toFixed(3) }
-        Text { text: "Acceleration Y: " + acceleration_y.toFixed(3) }
+        Text { text: "State: " +  ( currentState!=null ? state : "?")  }
+        Text { text: "Position X: " +  ( currentState!=null ? position_x.toFixed(3) : "?")  }
+        Text { text: "Position Y: " + ( currentState!=null ? position_y.toFixed(3) : "?") }
+        Text { text: "Speed X: " + ( currentState!=null ? speed_x.toFixed(3) : "?") }
+        Text { text: "Speed Y: " + ( currentState!=null ? speed_y.toFixed(3) : "?") }
+        Text { text: "Acceleration X: " + ( currentState!=null ? acceleration_x.toFixed(3) : "?") }
+        Text { text: "Acceleration Y: " + ( currentState!=null ? acceleration_y.toFixed(3) : "?") }
         Text { text: "Reset pressed: " + app_window.reset }
-        Text { text: "Lamp on: " + app_window.lamp }
+        Text { text: "Lamp on: " + ( currentState!=null ? lamp : "?") }
         Text { text: "Calibrated: " + app_window.calibration }
+        Text { text: "Top wall distance: " + ( currentState!=null ? top_wall_distance.toFixed(3) : "?") }
+        Text { text: "Bottom wall distance: " + ( currentState!=null ? bottom_wall_distance.toFixed(3) : "?") }
+        Text { text: "Left wall distance: " + ( currentState!=null ? left_wall_distance.toFixed(3) : "?") }
+        Text { text: "Right wall distance: " + ( currentState!=null ? right_wall_distance.toFixed(3) : "?") }
     }
 }
 
