@@ -59,7 +59,7 @@ void MainWindowsEventHandling::historyChanged()
     qmlContext.setContextProperty(QStringLiteral("historyModel"), QVariant::fromValue(history.stateList));
     qmlContext.setContextProperty(QStringLiteral("currentState"), QVariant::fromValue(history.currentState));
 
-    qmlContext.setContextProperty(QStringLiteral("historyGraphTimestamps"), QVariant::fromValue(history.graphTimestamps));
+    qmlContext.setContextProperty(QStringLiteral("historyGraphTimestamp"), QVariant::fromValue(history.graphTimestamps));
     qmlContext.setContextProperty(QStringLiteral("historyGraphVelocityX"), QVariant::fromValue(history.graphVelocitiesX));
     qmlContext.setContextProperty(QStringLiteral("historyGraphVelocityY"), QVariant::fromValue(history.graphVelocitiesY));
     qmlContext.setContextProperty(QStringLiteral("historyGraphAccelerationX"), QVariant::fromValue(history.graphAccelerationsX));

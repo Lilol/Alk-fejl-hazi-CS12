@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>LogList.qml</file>
+        <file>Buttons.qml</file>
+        <file>help_window.qml</file>
+        <file>KeyHandler.qml</file>
+        <file>MapImage.qml</file>
+        <file>SpeedMeter.qml</file>
+        <file>HistoryGraph.qml</file>
+    </qresource>
+</RCC>

@@ -6,11 +6,13 @@ import QtQuick 2.0
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
 Rectangle{
-    Canvas {
-        property var graphTimestamps;
-        property var graphVelocities;
-        property var graphAccelerations;
+    property var graphTimestamps;
+    property var graphVelocitiesX;
+    property var graphVelocitiesY;
+    property var graphAccelerationsX;
+    property var graphAccelerationsY;
 
+    Canvas {
         anchors.fill: parent
         onPaint: {
             var context = getContext("2d");
@@ -25,8 +27,8 @@ Rectangle{
             drawHorizontalLine(context, -10.0, "black", parent.height / 20);
 
             //Insert the printable dataset here
-            //drawDataset(context, graphVelocitiesX, graphVelocitiesY, "red", parent.height / 20);
-            //drawDataset(context, graphAccelerationsX, graphAccelerationsY, "rgba(220,110,110,1)", 5.0);
+            drawDataset(context, graphVelocitiesX, graphVelocitiesY, "red", parent.height / 20);
+            drawDataset(context, graphAccelerationsX, graphAccelerationsY, "rgba(220,110,110,1)", 5.0);
         }
 
         function drawHorizontalLine(context, dataValue, strokeStyle, verticalScaler)

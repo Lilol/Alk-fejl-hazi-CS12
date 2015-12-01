@@ -99,7 +99,15 @@ ApplicationWindow {
             visible: true
 
             Buttons {
-
+                    onStopCommand: {
+                        stopCommandCpp();
+                    }
+                    onTestCommand: {
+                        testCommandCpp();
+                    }
+                    onResetCommand: {
+                        resetCommandCpp();
+                    }
             }
         }
     }
@@ -122,6 +130,18 @@ ApplicationWindow {
     //Handling the input keys
     KeyHandler {
         id: keyhandlercontrol
+        onAccelerateXCommand: {
+            accelerateXCommandCpp();
+        }
+        onAccelerateYCommand: {
+            accelerateYCommandCpp();
+        }
+        onSlowDownXCommand: {
+            slowDownXCommandCpp();
+        }
+        onSlowDownYCommand: {
+            slowDownYCommandCpp();
+        }
     }
 
     //Loglist
@@ -140,22 +160,17 @@ ApplicationWindow {
             anchors.rightMargin: parent.width * 0.3
 
             state : currentState.statusName
-            // @disable-check M16
             position_x : currentState.x
             position_y : currentState.y
             speed_y : currentState.vy
             speed_x : currentState.vx
             acceleration_X : currentState.ax
             acceleration_y : currentState.ay
-            // @disable-check M16
             top_wall_distance : currentState.sensors[0]
-            // @disable-check M16
             bottom_wall_distance : currentState.sensors[2]
-            // @disable-check M16
             left_wall_distance : currentState.sensors[3]
-            // @disable-check M16
             right_wall_distance : currentState.sensors[1]
-            lamp: (currentState.light !== 0 ? "ON" : "OFF" )
+            lamp : (currentState.light !== 0 ? "ON" : "OFF" )
             }
     }
 
@@ -170,49 +185,11 @@ ApplicationWindow {
         //It can be buggy, if the window crashes, delete this line
         anchors.bottomMargin: 3
 
-        // @disable-check M16
-        graphTimestamps: historyGraphTimestamps
-        // @disable-check M16
-        graphVelocitiesX: historyGraphVelocityX
-        // @disable-check M16
-        graphVelocitiesY: historyGraphVelocityY
-        // @disable-check M16
-        graphAccelerationsX: historyGraphAccelerationX
-        // @disable-check M16
-        graphAccelerationsY: historyGraphAccelerationY
-    }
-
-// @disable-check M16
-    onResetCommand: {
-        resetCommandCpp();
-    }
-// @disable-check M16
-    onAccelerateXCommand: {
-        accelerateXCommandCpp();
-    }
-// @disable-check M16
-    onAccelerateYCommand: {
-        accelerateYCommandCpp();
-    }
-// @disable-check M16
-    onSlowDownXCommand: {
-        slowDownXCommandCpp();
-    }
-// @disable-check M16
-    slowDownYCommand: {
-        slowDownYCommandCpp();
-    }
-// @disable-check M16
-    onStopCommand: {
-        stopCommandCpp();
-    }
-// @disable-check M16
-    onDefaultCommand: {
-        defaultCommandCpp();
-    }
-// @disable-check M16
-    onTestCommand: {
-        testCommandCpp();
+        graphTimestamps : historyGraphTimestamp
+        graphVelocitiesX : historyGraphVelocityX
+        graphVelocitiesY : historyGraphVelocityY
+        graphAccelerationsX : historyGraphAccelerationX
+        graphAccelerationsY : historyGraphAccelerationY
     }
 }
 

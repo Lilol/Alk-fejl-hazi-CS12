@@ -15,7 +15,7 @@ MainApplication::MainApplication(int argc, char *argv[])
     //  egészen addig, amíg az első üzenet meg nem jönne a szimulátortól.
     //handler.historyChanged();
 
-    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+    engine.load(QUrl(QStringLiteral("main.qml")));
 
     // A QML gyökérelemre szükségünk van ahhoz, hogy tudjunk hivatkozni a QML-es elemekre.
     auto rootObjects = engine.rootObjects();

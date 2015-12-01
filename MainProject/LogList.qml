@@ -12,9 +12,14 @@ ScrollView {
     property var speed_y;
     property var acceleration_y;
     property var acceleration_X;
-    property var position_X;
+    property var position_x;
     property var position_y;
+    property var top_wall_distance
+    property var bottom_wall_distance
+    property var left_wall_distance
+    property var right_wall_distance
     property var lamp;
+    property var state;
 
     horizontalScrollBarPolicy: Qt.ScrollBarAsNeeded
     Column {

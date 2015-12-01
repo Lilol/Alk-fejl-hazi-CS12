@@ -52,7 +52,7 @@ Column {
         onClicked: resetCommand();
     }
     Button {
-        text: "Calibration"
+        text: "Test"
         style: ButtonStyle {
             background: Rectangle {
                 implicitWidth: 100
