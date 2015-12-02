@@ -11,7 +11,7 @@ ScrollView {
     property var speed_x;
     property var speed_y;
     property var acceleration_y;
-    property var acceleration_X;
+    property var acceleration_x;
     property var position_x;
     property var position_y;
     property var top_wall_distance

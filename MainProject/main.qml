@@ -164,7 +164,7 @@ ApplicationWindow {
             position_y : currentState.y
             speed_y : currentState.vy
             speed_x : currentState.vx
-            acceleration_X : currentState.ax
+            acceleration_x : currentState.ax
             acceleration_y : currentState.ay
             top_wall_distance : currentState.sensors[0]
             bottom_wall_distance : currentState.sensors[2]
