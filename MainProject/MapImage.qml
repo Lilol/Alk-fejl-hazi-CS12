@@ -60,7 +60,7 @@ Canvas {
         var previous;
         if((speed_x !== 0) && (speed_y !== 0))
         {
-            previus = Math.atan2(speed_y, speed_x);
+            previous = Math.atan2(speed_y, speed_x);
             return previous;
         }
         else
