@@ -168,8 +168,8 @@ void Simulator::dataReady(QDataStream &inputStream)
     case RobotCommand::Command::Accelerate:
         qDebug() << "Simulator: Gyorsítási parancs.";
         state.setStatus(RobotState::Status::Default);
-        state.setAx(receivedCommand.accelerate_x());
-        state.setAy(receivedCommand.accelerate_y());
+        state.setAx(receivedCommand.accelerate_x()+state.ax());
+        state.setAy(receivedCommand.accelerate_y()+state.ay());
         break;
     default:
         Q_UNREACHABLE();
