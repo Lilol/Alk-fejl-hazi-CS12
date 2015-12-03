@@ -166,10 +166,7 @@ ApplicationWindow {
             speed_x : currentState.vx
             acceleration_x : currentState.ax
             acceleration_y : currentState.ay
-            top_wall_distance : currentState.sensors[0]
-            bottom_wall_distance : currentState.sensors[2]
-            left_wall_distance : currentState.sensors[3]
-            right_wall_distance : currentState.sensors[1]
+            list_s : currentState.sensors
             lamp : (currentState.light !== 0 ? "ON" : "OFF" )
             }
     }

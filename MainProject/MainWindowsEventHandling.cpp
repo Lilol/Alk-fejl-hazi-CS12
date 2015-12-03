@@ -97,7 +97,7 @@ QQuickItem* MainWindowsEventHandling::FindItemByName(QObject *rootObject, const 
 
 void MainWindowsEventHandling::ConnectQmlSignals(QObject *rootObject)
 {
-    QQuickItem *historyGraph = FindItemByName(rootObject,QString("historyGraph"));
+    QQuickItem *historyGraph = FindItemByName(rootObject,QString("graphCanvas"));
     if (historyGraph)
     {
         QObject::connect(this, SIGNAL(historyContextUpdated()), historyGraph, SLOT(requestPaint()));

@@ -20,6 +20,7 @@ QT += serialport
 
 # Default rules for deployment.
 include(../deployment.pri)
+RESOURCES += qml.qrc
 
 SOURCES += main.cpp\
         RobotState.cpp \

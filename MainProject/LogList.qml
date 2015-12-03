@@ -14,10 +14,7 @@ ScrollView {
     property var acceleration_x;
     property var position_x;
     property var position_y;
-    property var top_wall_distance
-    property var bottom_wall_distance
-    property var left_wall_distance
-    property var right_wall_distance
+    property var list_s;
     property var lamp;
     property var state;
 
@@ -35,10 +32,10 @@ ScrollView {
         Text { text: "Reset pressed: " + app_window.reset }
         Text { text: "Lamp on: " + ( currentState!=null ? lamp : "?") }
         Text { text: "Calibrated: " + app_window.calibration }
-        Text { text: "Top wall distance: " + ( currentState!=null ? top_wall_distance.toFixed(3) : "?") }
-        Text { text: "Bottom wall distance: " + ( currentState!=null ? bottom_wall_distance.toFixed(3) : "?") }
-        Text { text: "Left wall distance: " + ( currentState!=null ? left_wall_distance.toFixed(3) : "?") }
-        Text { text: "Right wall distance: " + ( currentState!=null ? right_wall_distance.toFixed(3) : "?") }
+        Text { text: "Top wall distance: " + ( currentState!=null ? list_s[0].toFixed(3) : "?") }
+        Text { text: "Bottom wall distance: " + ( currentState!=null ? list_s[2].toFixed(3) : "?") }
+        Text { text: "Left wall distance: " + ( currentState!=null ? list_s[3].toFixed(3) : "?") }
+        Text { text: "Right wall distance: " + ( currentState!=null ? list_s[1].toFixed(3) : "?") }
     }
 }
 

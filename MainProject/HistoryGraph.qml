@@ -13,7 +13,9 @@ Rectangle{
     property var graphAccelerationsY;
 
     Canvas {
+        objectName: "graphCanvas"
         anchors.fill: parent
+        id: graphCanvas
         onPaint: {
             var context = getContext("2d");
 
@@ -34,7 +36,6 @@ Rectangle{
         function drawHorizontalLine(context, dataValue, strokeStyle, verticalScaler)
         {
             var offset = height/2;
-
             context.beginPath();
             context.lineWidth = 1;
             context.strokeStyle = strokeStyle;
@@ -56,7 +57,7 @@ Rectangle{
             // A vektoron végigmenve behúzzuk a grafikon szakaszait.
             for(var i=0; i < graphVelocitiesX.length;i++)
             {
-                context.lineTo(10*i, offset - verticalScaler * Math.sqrt(Math.pow(datarowX[i], 2) + Math.pow(datarowY[i], 2)));
+                context.lineTo(graphCanvas.width/20*i, offset - verticalScaler * Math.sqrt(Math.pow(datarowX[i], 2) + Math.pow(datarowY[i], 2)));
             }
             context.stroke();
         }
