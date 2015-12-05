@@ -34,7 +34,7 @@ void Simulator::tick()
 	state.setVy(state.vy() + state.ay()*dt);
 	
 	// szenzor szimuláció
-    QList<float> sensorTemp;
+    QList<int> sensorTemp;
     sensorTemp.append(300-state.y());
     sensorTemp.append(400-state.x());
     sensorTemp.append(300+state.y());

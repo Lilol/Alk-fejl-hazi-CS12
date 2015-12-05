@@ -16,13 +16,12 @@ ScrollView {
     property var position_y;
     property var list_s;
     property var lamp;
-    property var state;
 
     horizontalScrollBarPolicy: Qt.ScrollBarAsNeeded
     Column {
         spacing: loglist_outer_rectangle.height / 20
 
-        Text { text: "State: " +  ( currentState!=null ? state : "?")  }
+        Text { text: "State: " +  ( currentState!=null ? currentState.statusName : "?")  }
         Text { text: "Position X: " +  ( currentState!=null ? position_x.toFixed(3) : "?")  }
         Text { text: "Position Y: " + ( currentState!=null ? position_y.toFixed(3) : "?") }
         Text { text: "Speed X: " + ( currentState!=null ? speed_x.toFixed(3) : "?") }

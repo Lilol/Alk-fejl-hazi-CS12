@@ -24,9 +24,9 @@ Rectangle{
 
             drawHorizontalLine(context, 0.0, "black", parent.height / 20);
             drawHorizontalLine(context, 5.0, "grey", parent.height / 20);
-            drawHorizontalLine(context, -5.0, "grey", parent.height / 20);
+            drawHorizontalLine(context, 15.0, "grey", parent.height / 20);
             drawHorizontalLine(context, 10.0, "black", parent.height / 20);
-            drawHorizontalLine(context, -10.0, "black", parent.height / 20);
+            drawHorizontalLine(context, 20.0, "black", parent.height / 20);
 
             //Insert the printable dataset here
             drawDataset(context, graphVelocitiesX, graphVelocitiesY, "red", parent.height / 20);
@@ -35,7 +35,7 @@ Rectangle{
 
         function drawHorizontalLine(context, dataValue, strokeStyle, verticalScaler)
         {
-            var offset = height/2;
+            var offset = height;
             context.beginPath();
             context.lineWidth = 1;
             context.strokeStyle = strokeStyle;
@@ -48,7 +48,7 @@ Rectangle{
 
         function drawDataset(context, datarowX, datarowY, strokeStyle, verticalScaler)
         {
-            var offset = height/2;
+            var offset = height;
 
             context.beginPath();
             context.lineWidth = 3;

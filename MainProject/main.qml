@@ -152,6 +152,7 @@ ApplicationWindow {
         anchors.right: mapimage_outer_rectangle.left
         height: mapimage_outer_rectangle.height
         color: app_window.color
+
         LogList {
             anchors.fill: parent
             anchors.topMargin: parent.height * 0.1
@@ -159,7 +160,6 @@ ApplicationWindow {
             anchors.leftMargin: parent.width * 0.3
             anchors.rightMargin: parent.width * 0.3
 
-            state : currentState.statusName
             position_x : currentState.x
             position_y : currentState.y
             speed_y : currentState.vy
@@ -167,7 +167,7 @@ ApplicationWindow {
             acceleration_x : currentState.ax
             acceleration_y : currentState.ay
             list_s : currentState.sensors
-            lamp : (currentState.light !== 0 ? "ON" : "OFF" )
+            lamp : (currentState.light !== false ? "ON" : "OFF" )
             }
     }
 

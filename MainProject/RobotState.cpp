@@ -9,7 +9,7 @@ RobotState::RobotState()
 }
 
 RobotState::RobotState(Status status, qint64 timestamp,
-    float x, float y, float vx, float vy, float ax, float ay, bool light, QList<float> sensors)
+    float x, float y, float vx, float vy, float ax, float ay, bool light, QList<int> sensors)
     : _status(status), _timestamp(timestamp), _x(x), _y(y), _vx(vx), _vy(vy), _ax(ax), _ay(ay), _light(light), _sensors(sensors)
 {
     initStatusNames();
@@ -31,15 +31,17 @@ QString RobotState::getStatusName() const
 {
     auto it = statusNames.find((int)_status);
     Q_ASSERT(it != statusNames.end());
+    qDebug() << it->second << endl;
     return it->second;
+    //return QString("debug");
 }
 
 void RobotState::WriteTo(QDataStream& stream) const
 {
     stream << (qint32)_status;
     stream << _timestamp;
-    stream << _x;
-	stream << _y;
+    stream << _x + 400;
+    stream << _y + 300;
     stream << _vx;
 	stream << _vy;
     stream << _ax;

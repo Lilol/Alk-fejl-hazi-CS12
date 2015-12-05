@@ -55,7 +55,7 @@ public:
      * @param light Robot lámpájának állapota
      */
     RobotState(Status status, qint64 timestamp,
-        float x, float y, float vx, float vy, float ax, float ay, bool light, QList<float> sensors);
+        float x, float y, float vx, float vy, float ax, float ay, bool light, QList<int> sensors);
 
     ~RobotState() = default;
 
@@ -107,12 +107,12 @@ public:
     void setLight(bool light) { _light = light; }
 	
 	/** Szenzorok értéke. 4db faltávolság */
-    Q_PROPERTY(QList<float> sensors READ sensors WRITE setSensors MEMBER _sensors NOTIFY sensorsChanged)
-    QList<float> sensors() const { return _sensors; }
-    void setSensors(QList<float> sensors) { _sensors = sensors; }
+    Q_PROPERTY(QList<int> sensors READ sensors WRITE setSensors MEMBER _sensors NOTIFY sensorsChanged)
+    QList<int> sensors() const { return _sensors; }
+    void setSensors(QList<int> sensors) { _sensors = sensors; }
 
     /** Az aktuális állapot QStringként. */
-    // In QML, it will be accessible as model.statusName
+    // In QML, it will be accessible as current.statusName
     Q_PROPERTY(QString statusName READ getStatusName NOTIFY statusChanged)
 
     /** Sorosítja az objektumot a megadott streambe. */
@@ -151,7 +151,7 @@ private:
     float _ax;   /** X-irányú Gyorsulás (m/s2) */
     float _ay;  /** Y-irányú Gyorsulás (m/s2) */
     bool _light;   /** Robot lámpájának állapota */
-    QList<float> _sensors;  /** Faltávolság-szenzorok értékei */
+    QList<int> _sensors;  /** Faltávolság-szenzorok értékei */
 	
 	
     /** Az állapotok és szöveges verziójuk közti megfeleltetés.
