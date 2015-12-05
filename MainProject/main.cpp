@@ -1,11 +1,9 @@
 #include <QDebug>
 #include <QQmlContext>
 #include "MainApplication.h"
-#include "RobotCommand.h"
-#include "RobotState.h"
-#include "Simulator.h"
-
-#define SOCKET_PORT 12345
+#include "../Libraries/RobotCommand.h"
+#include "../Libraries/RobotState.h"
+#include "../Libraries/Simulator.h"
 
 int main(int argc, char *argv[])
 {

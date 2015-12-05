@@ -2,8 +2,8 @@
 #ifndef MAIN_APPLICATION_H
 #define MAIN_APPLICATION_H
 
-#include "TcpCommunication/TcpSocketClient.h"
-#include "Simulator.h"
+#include "../Libraries/TcpCommunication/TcpSocketClient.h"
+#include "../Libraries/Simulator.h"
 #include "RobotProxy.h"
 #include "MainWindowsEventHandling.h"
 #include "RobotStateHistory.h"

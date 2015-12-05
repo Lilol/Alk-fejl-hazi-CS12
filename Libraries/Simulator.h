@@ -12,7 +12,7 @@
  * @brief A robot szimulátor.
  *
  * Van egy belső, RobotState típusú állapota, melyet egy QTimer segítségével periodikusan frissít.
- * Létrehoz egy CommunicationTcpSocketServer objektumot a kommunikációhoz, amihez lehet csatlakozni.
+ * Létrehoz egy TcpSocketServer objektumot a kommunikációhoz, amihez lehet csatlakozni.
  * Minden szimulációs lépés után elküldi az állapotát.
  * Ha egy RobotState objektumot kap, azt parancsként értelmezi.
  */
@@ -25,6 +25,9 @@ public:
      * @param port  A port, amin a létrehozott szerver hallgatózik.
     */
     explicit Simulator(int port);
+
+    /** Konstruktor a unit teszteléshez. Nincs szüksége portra.  */
+    explicit Simulator();
     ~Simulator() = default;
 
     /** Elindítja a szimulátort.
@@ -33,25 +36,39 @@ public:
     void start(float intervalSec);
 
 private:
-    /** Belső szerver a kommunikációhoz. */
+    /** @brief Belső szerver a kommunikációhoz. */
     TcpSocketServer communication;
 
-    /** Időzítő a tick() metódus periodikus hívására. */
+    /** @brief Időzítő a tick() metódus periodikus hívására. */
     QTimer timer;
 
-    /** A periódus idő (másodpercben). */
+    /** @brief A periódus idő (másodpercben). */
     float dt;
 
-    /** A szimulátor pillanatnyi állapota. */
+    /** @brief A szimulátor pillanatnyi állapota. */
     RobotState state;
 
+    void sendState();
+    void showDebugInfo();
+
+    /** @brief Az state változó beállítása a robot jelenlegi állapotától függően. */
+    void processStateInfo();
+
+    void saturateVelocity();
+    void saturatePosition();
+    void doSensorSimulation();
+    void doPhisicalSimulation();
+
 private slots:
-    /** A timer hívja meg, meghatározza a robot
+    /** @brief A timer hívja meg, meghatározza a robot
      * állapotát a következő időpillanatban. */
     void tick();
 
-    /** Új üzenet fogadását jelzi. */
+    /** @brief Új üzenet fogadását jelzi. */
     void dataReady(QDataStream& inputStream);
+
+signals:
+    void stateSet(RobotState state);
 };
 
 #endif // SIMULATOR_H

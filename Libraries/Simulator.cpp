@@ -9,6 +9,13 @@ Simulator::Simulator(int port)
     connect(&timer, SIGNAL(timeout()), this, SLOT(tick()));
 }
 
+Simulator::Simulator()
+    : communication(1234), state()
+{
+     connect(&timer, SIGNAL(timeout()), this, SLOT(tick()));
+     qDebug() << "Timer connected" << endl;
+}
+
 void Simulator::start(float intervalSec)
 {
     dt = intervalSec;
@@ -27,39 +34,71 @@ void Simulator::start(float intervalSec)
 void Simulator::tick()
 {
     // Fizikai szimuláció
-    state.setTimestamp(state.timestamp() + dt);
-    state.setX(state.x() + state.vx()*dt);
-	state.setY(state.y() + state.vy()*dt);
-    state.setVx(state.vx() + state.ax()*dt);
-	state.setVy(state.vy() + state.ay()*dt);
+    doPhisicalSimulation();
 	
 	// szenzor szimuláció
+    doSensorSimulation();
+	
+	// pozíció szaturáció
+    saturatePosition();
+	
+	// sebesség szaturáció
+    saturateVelocity();
+
+    // Lámpa bekapcsolása a sebességtől függően
+    state.setLight( state.vx()==10.0F ? true : false );
+
+    // Magasabb szintű funkciók
+    processStateInfo();
+
+    // Debug információ kiírása
+    showDebugInfo();
+
+    // Állapot küldése
+    sendState();
+}
+
+void Simulator::doPhisicalSimulation()
+{
+    state.setTimestamp(state.timestamp() + dt);
+    state.setX(state.x() + state.vx()*dt);
+    state.setY(state.y() + state.vy()*dt);
+    state.setVx(state.vx() + state.ax()*dt);
+    state.setVy(state.vy() + state.ay()*dt);
+}
+
+void Simulator::doSensorSimulation()
+{
     QList<int> sensorTemp;
     sensorTemp.append(300-state.y());
     sensorTemp.append(400-state.x());
     sensorTemp.append(300+state.y());
     sensorTemp.append(400+state.x());
-	state.setSensors(sensorTemp);
-	
-	// pozíció szaturáció
-	if (state.x() > 400)
-	{
-		state.setX(400);
-	}
-	if (state.x() < -400)
-	{
-		state.setX(-400);
-	}
-	if (state.y() > 300)
-	{
-		state.setY(300);
-	}
-	if (state.y() < -300)
-	{
-		state.setY(-300);
-	}
-	
-	// sebesség szaturáció
+    state.setSensors(sensorTemp);
+}
+
+void Simulator::saturatePosition()
+{
+    if (state.x() > 400)
+    {
+        state.setX(400);
+    }
+    if (state.x() < -400)
+    {
+        state.setX(-400);
+    }
+    if (state.y() > 300)
+    {
+        state.setY(300);
+    }
+    if (state.y() < -300)
+    {
+        state.setY(-300);
+    }
+}
+
+void Simulator::saturateVelocity()
+{
     if (state.vx()<-10.0)
     {
         state.setVx( -10.0F );
@@ -68,8 +107,8 @@ void Simulator::tick()
     {
         state.setVx( 10.0F );
     }
-	
-	if (state.vy()<-10.0)
+
+    if (state.vy()<-10.0)
     {
         state.setVy( -10.0F );
     }
@@ -77,10 +116,10 @@ void Simulator::tick()
     {
         state.setVy( 10.0F );
     }
+}
 
-    state.setLight( state.vx()==10.0F ? true : false );
-
-    // Magasabb szintű funkciók
+void Simulator::processStateInfo()
+{
     switch(state.status())
     {
     case RobotState::Status::Default:
@@ -89,11 +128,11 @@ void Simulator::tick()
         qDebug() << "Simulator: Reset";
         state.setStatus(RobotState::Status::Default);
         state.setX(0.0F);
-		state.setY(0.0F);
+        state.setY(0.0F);
         state.setVx(0.0F);
-		state.setVy(0.0F);
+        state.setVy(0.0F);
         state.setAx(0.0F);
-		state.setAy(0.0F);
+        state.setAy(0.0F);
         state.setLight(0);
         break;
     case RobotState::Status::Stopping:
@@ -132,15 +171,22 @@ void Simulator::tick()
     default:
         Q_UNREACHABLE();
     }
+}
 
+void Simulator::showDebugInfo()
+{
     qDebug() << "Simulator: tick (" << state.timestamp()
              << "): állapot=" << state.getStatusName()
              << ", x=" << state.x()
              << ", vx=" << state.vx()
              << ", ax=" << state.ax()
              << ", lámpa:" << state.light();
+}
 
-    // Állapot küldése
+void Simulator::sendState()
+{
+    RobotState s = state;
+    emit stateSet(s);
     if (communication.isConnected())
     {
         communication.send(state);
@@ -151,6 +197,7 @@ void Simulator::dataReady(QDataStream &inputStream)
 {
     RobotCommand receivedCommand;
     receivedCommand.ReadFrom(inputStream);
+    qDebug() << "recieved command" << (int)receivedCommand.command() << endl;
 
     switch(receivedCommand.command())
     {

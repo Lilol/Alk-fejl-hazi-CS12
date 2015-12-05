@@ -56,10 +56,10 @@ public:
      */
     RobotState(Status status, qint64 timestamp,
         float x, float y, float vx, float vy, float ax, float ay, bool light, QList<int> sensors);
-
+    RobotState(const RobotState& other);
     ~RobotState() = default;
 
-    // A NOTIFY signalokat nem implementáljuk, mert nincs rájuk szükség.
+    void operator=(const RobotState& other);
 
     /** Állapot (vagy parancs) */
     Q_PROPERTY(Status status READ status WRITE setStatus MEMBER _status NOTIFY statusChanged)

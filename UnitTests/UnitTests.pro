@@ -4,26 +4,25 @@
 #
 #-------------------------------------------------
 
-QT       += testlib
-
-QT       -= gui
-
-QT += network
+QT      += testlib
+QT      -= gui
+QT      += network
 
 CONFIG += c++14
 QMAKE_CXXFLAGS_CXX11    = -std=c++1y
 
-TARGET = tst_UnitTests
+TARGET = UnitTests
 CONFIG   += console
 CONFIG   -= app_bundle
+CONFIG   += testcase
 
 include(../deployment.pri)
 
 TEMPLATE = app
 
 SOURCES += \
-    SimulatorTester.cpp
+    SimulatorTester.cpp \
 
-DEFINES += SRCDIR=\\\"$$PWD/\\\"
-
+win32:CONFIG(release, debug|release): LIBS += -L../Libraries/release/ -lLibraries
+else:win32:CONFIG(debug, debug|release): LIBS += -L../Libraries/debug/ -lLibraries
 

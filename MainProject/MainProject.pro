@@ -16,32 +16,19 @@ QMAKE_CXXFLAGS_CXX11    = -std=c++1y
 
 QT += qml quick widgets
 QT += network
-QT += serialport
 
 # Default rules for deployment.
 include(../deployment.pri)
 RESOURCES += qml.qrc
 
 SOURCES += main.cpp\
-        RobotState.cpp \
-        RobotCommand.cpp \
-        TcpCommunication/TcpCommunication.cpp \
-    TcpCommunication/TcpSocketClient.cpp \
-    TcpCommunication/TcpSocketServer.cpp \
     MainApplication.cpp \
-    Simulator.cpp \
     MainWindowsEventHandling.cpp \
     RobotProxy.cpp \
     RobotStateHistory.cpp
 
 HEADERS  += \
-            RobotState.h \
-            RobotCommand.h \
-            TcpCommunication/TcpCommunication.h \
-    TcpCommunication/TcpSocketClient.h \
-    TcpCommunication/TcpSocketServer.h \
     MainApplication.h \
-    Simulator.h \
     MainWindowsEventHandling.h \
     RobotProxy.h \
     RobotStateHistory.h
@@ -57,3 +44,6 @@ DISTFILES += \
     LogList.qml \
     MapImage.qml \
     SpeedMeter.qml
+
+win32:CONFIG(release, debug|release): LIBS += -L../Libraries/release/ -lLibraries
+else:win32:CONFIG(debug, debug|release): LIBS += -L../Libraries/debug/ -lLibraries

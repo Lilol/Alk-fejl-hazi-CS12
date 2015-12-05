@@ -24,4 +24,8 @@ android-no-sdk {
     INSTALLS += target
 }
 
-INCLUDEPATH += $$PWD/MainProject
+SRC_DIR = $$PWD
+
+INCLUDEPATH += $$PWD/MainProject \
+               $$PWD/UnitTests \
+               $$PWD/Libraries
