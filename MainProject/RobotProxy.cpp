@@ -1,8 +1,8 @@
 #include "RobotProxy.h"
 #include "RobotStateHistory.h"
-#include "TcpCommunication/TcpCommunication.h"
-#include "RobotState.h"
-#include "RobotCommand.h"
+#include "../Libraries/TcpCommunication/TcpCommunication.h"
+#include "../Libraries/RobotState.h"
+#include "../Libraries/RobotCommand.h"
 
 RobotProxy::RobotProxy(RobotStateHistory& history, TcpCommunication &communication)
     : history(history), communication(communication)

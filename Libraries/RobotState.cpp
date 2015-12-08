@@ -15,6 +15,34 @@ RobotState::RobotState(Status status, qint64 timestamp,
     initStatusNames();
 }
 
+RobotState::RobotState(const RobotState& other)
+{
+    _x = other.x();
+    _y = other.y();
+    _vx = other.vx();
+    _vy = other.vy();
+    _ax = other.ax();
+    _ay = other.ay();
+    _status = other.status();
+    _timestamp = other.timestamp();
+    _light = other.light();
+    _sensors = other.sensors();
+}
+
+void RobotState::operator=(const RobotState& other)
+{
+    _x = other.x();
+    _y = other.y();
+    _vx = other.vx();
+    _vy = other.vy();
+    _ax = other.ax();
+    _ay = other.ay();
+    _status = other.status();
+    _timestamp = other.timestamp();
+    _light = other.light();
+    _sensors = other.sensors();
+}
+
 void RobotState::initStatusNames()
 {
     if (statusNames.empty())

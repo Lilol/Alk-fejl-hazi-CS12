@@ -3,9 +3,6 @@
 #define ROBOT_COMMAND_H
 #include <QDataStream>
 
-
-
-
 class RobotCommand : public QObject
 {
     Q_OBJECT

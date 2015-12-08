@@ -41,3 +41,10 @@ build-AlkFejlHaziFeladat-Desktop_Qt_5_4_0_MinGW_32bit-Debug/
 Dokumentacio/
 MainProject/debug/
 Makefile
+Libraries/debug/moc_TcpCommunication.cpp
+Libraries/debug/moc_TcpSocketServer.cpp
+Libraries/debug/moc_Simulator.cpp
+Libraries/debug/moc_RobotState.cpp
+Libraries/debug/moc_RobotCommand.cpp
+UnitTests/debug/moc_Simulator.cpp
+UnitTests/SimulatorTester.cpp.bF5200

@@ -2,8 +2,8 @@
 #ifndef ROBOT_PROXY_H
 #define ROBOT_PROXY_H
 #include <QObject>
-#include "RobotState.h"
-#include "TcpCommunication/TcpCommunication.h"
+#include "../Libraries/RobotState.h"
+#include "../Libraries/TcpCommunication/TcpCommunication.h"
 
 class RobotStateHistory;
 class TcpCommunication;
