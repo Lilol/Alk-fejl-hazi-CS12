@@ -118,6 +118,39 @@ void Simulator::saturateVelocity()
     }
 }
 
+int Simulator::selfTest()
+{
+    state.setX(1.0F);
+    state.setY(1.0F);
+    state.setLight(true);
+    if(state.x()-1.0 > 0.001 || state.y()-1.0 > 0.001 || state.light() != true)     // float miatt kell a kivonás
+    {
+        return -1;
+    }
+    state.setVx(1.0F);
+    state.setVy(1.0F);
+    if(state.vx()-1.0 > 0.001 || state.vy()-1.0 > 0.001)
+    {
+        return -1;
+    }
+    state.setAx(1.0F);
+    state.setAy(1.0F);
+    if(state.ax()-1.0 > 0.001 || state.ay()-1.0 > 0.001)
+    {
+        return -1;
+    }
+
+    state.setX(0.0F);
+    state.setY(0.0F);
+    state.setLight(false);
+    state.setVx(0.0F);
+    state.setVy(0.0F);
+    state.setAx(0.0F);
+    state.setAy(0.0F);
+
+    return 1;
+}
+
 void Simulator::processStateInfo()
 {
     switch(state.status())
@@ -168,6 +201,22 @@ void Simulator::processStateInfo()
         // Megjegyzés: a gyorsulás kért értékét már a parancs fogadásakor beállítottuk
         qDebug() << "HIBA: A szimulátor nem kerülhetne a Status::Accelerate állapotba.";
         break;
+     case RobotState::Status::Testing:
+        if(selfTest() != -1)
+        {
+            state.setStatus(RobotState::Status::Test_OK);
+        }
+        else
+        {
+            state.setStatus(RobotState::Status::Test_Error);
+        }
+        break;
+    case RobotState::Status::Test_OK:
+            state.setStatus(RobotState::Status::Reset);
+        break;
+    case RobotState::Status::Test_Error:
+            state.setStatus(RobotState::Status::Reset);
+        break;
     default:
         Q_UNREACHABLE();
     }
@@ -217,6 +266,11 @@ void Simulator::dataReady(QDataStream &inputStream)
         state.setStatus(RobotState::Status::Accelerate);
         state.setAx(receivedCommand.accelerate_x()+state.ax());
         state.setAy(receivedCommand.accelerate_y()+state.ay());
+        break;
+    case RobotCommand::Command::Test:
+        qDebug() << "Simulator: Teszt parancs.";
+        state.setStatus(RobotState::Status::Testing);
+
         break;
     default:
         Q_UNREACHABLE();

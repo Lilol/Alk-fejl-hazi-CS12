@@ -33,7 +33,11 @@ public:
         Stopping = 2,
         /** Gyorsítási parancs a robotnak. A gyorsítás mértékét a robot
          * átveszi a RobotState::a tulajdonságból. */
-        Accelerate = 3
+        Accelerate = 3,
+
+        Testing = 4,
+        Test_OK = 5,
+        Test_Error = 6
     };
 
     /**

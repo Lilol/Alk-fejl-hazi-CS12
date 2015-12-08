@@ -50,8 +50,11 @@ void RobotState::initStatusNames()
         // Még nincsen inicializálva.
         statusNames[(int)Status::Accelerate] = QString("acceleration");
         statusNames[(int)Status::Default] = QString("default");
-        statusNames[(int)Status::Reset] = QString("reset");
+        statusNames[(int)Status::Testing] = QString("testing");
         statusNames[(int)Status::Stopping] = QString("stopping");
+        statusNames[(int)Status::Reset] = QString("reset");
+        statusNames[(int)Status::Test_OK] = QString("Test OK");
+        statusNames[(int)Status::Test_Error] = QString("Test ERROR");
     }
 }
 
