@@ -59,6 +59,8 @@ private:
     void doSensorSimulation();
     void doPhisicalSimulation();
 
+    int selfTest();
+
 private slots:
     /** @brief A timer hívja meg, meghatározza a robot
      * állapotát a következő időpillanatban. */
