@@ -1,10 +1,11 @@
 TEMPLATE = subdirs
 CONFIG += ordered
+CONFIG += static
 
 SUBDIRS += \
     Libraries \
-    UnitTests \
     MainProject \
+    UnitTests \
 
 MainProject.depends = Libraries
 UnitTests.depends = Libraries

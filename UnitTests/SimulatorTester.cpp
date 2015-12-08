@@ -3,6 +3,8 @@
 #include "../Libraries/Simulator.h"
 #include <memory>
 
+/** @brief
+    A szimulátor tesztelésére alkalmas osztály.*/
 class SimulatorTester : public QObject
 {
     Q_OBJECT
@@ -11,17 +13,27 @@ public:
     SimulatorTester();
 
 private Q_SLOTS:
+
+    /** \addtogroup test A szimulátor tesztfüggvényei
+     * A pozíció, sebesség és gyorsulás teszteléséhez.
+     *  @{
+     */
     void testPosition();
     void testAcceleration();
     void testVelocity();
+    /** @}*/
+
     void initTestCase();
 
 private slots:
+    /** A szimulátor ezen a bemeneten jelzi, hogy lezajlott a szimuláció, elérhetőek az adatok.*/
     void dataIn(RobotState state);
 
 signals:
+    /** Gyorsítási parancsot küld a szimulátornak.*/
     void dataReady(QDataStream& stream);
-    void tick();
+    /** Szól a szimulátornak, hogy letelt egységnyi idő.*/
+    void sendTick();
 
 private:
     QDataStream testerStream;
@@ -30,6 +42,7 @@ private:
     std::unique_ptr<Simulator> simulator;
     RobotState robotState;
     qint64 timeIntervalBeginning;
+    const int sentTickCount = 4;
 
     void initTesterCommand();
 };
@@ -44,7 +57,7 @@ void SimulatorTester::initTestCase()
     simulator = std::unique_ptr<Simulator>(new Simulator);
     timeIntervalBeginning = -1;
     connect(this, SIGNAL(dataReady(QDataStream&)), simulator.get(), SLOT(dataReady(QDataStream&)));
-    connect(this, SIGNAL(tick()), simulator.get(), SLOT(tick()));
+    connect(this, SIGNAL(sendTick()), simulator.get(), SLOT(tick()));
     connect(simulator.get(), SIGNAL(stateSet(RobotState)), this, SLOT(dataIn(RobotState)));
     initTesterCommand();
 
@@ -56,10 +69,10 @@ void SimulatorTester::initTestCase()
 
     emit dataReady(testerStream);
 
-    emit tick();
-    emit tick();
-    emit tick();
-    emit tick();
+    for(uint i = 0; i < sentTickCount; i++)
+    {
+        emit sendTick();
+    }
 }
 
 void SimulatorTester::dataIn(RobotState state)
@@ -99,7 +112,7 @@ void SimulatorTester::testPosition()
     qDebug() << "x: " << currentState.x() << "dt: " << dt << endl;
 
     int distance = 0;
-    for(uint i = 0; i <= dt; i++)
+    for(int i = 0; i <= dt; i++)
         distance += i;
     QVERIFY2(currentState.x() == distance, "Position test failed.");
 }

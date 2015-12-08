@@ -3,17 +3,29 @@
 #define ROBOT_COMMAND_H
 #include <QDataStream>
 
+/**
+@brief A robotnak küldött parancsokat beburkoló osztály.
+Tartalmazza a robot irányításához szükséges parancs típusát, és gyorsítási parancs esetén a gyorsulás nagyságát.
+*/
 class RobotCommand : public QObject
 {
     Q_OBJECT
 
 public:
+    /**
+     * @brief A robotnak küldött parancs jellege.*/
     enum class Command
     {
+        /** Gyorsítási parancs
+        @warning Ilyenkor a gyorsulás Y és X-irányú összetevőjét is be kell állítani a setAccelerationX() és setAccelerationY() metódusok segítségével.*/
         Accelerate = 0,
+        /** Robot alapállapotba állítása.*/
         Reset = 1,
+        /** Öntesztelés indítása.*/
         Test = 2,
+        /** Megállási parancs küldése. */
         Stopping = 3,
+        /** Debuggoláshoz, teszteléshez használható. Nincs hatása a szimulátorra. */
         Default = 4,
     };
 

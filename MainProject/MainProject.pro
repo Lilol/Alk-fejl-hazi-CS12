@@ -13,6 +13,7 @@ TEMPLATE = app
 
 CONFIG += c++14
 QMAKE_CXXFLAGS_CXX11    = -std=c++1y
+CONFIG += static
 
 QT += qml quick widgets
 QT += network

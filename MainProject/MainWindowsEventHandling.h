@@ -82,7 +82,7 @@ private:
     /** A használt robot proxy. */
     RobotProxy& robot;
 
-    /** \addtogroup Hivatkozások adatkötéshez
+    /** \addtogroup hivatkozas Hivatkozások adatkötéshez
      *  @{
      */
     /** QML context a robot adatok frissítéséhez. */
