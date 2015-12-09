@@ -10,16 +10,17 @@ Canvas {
     property var position_y;
     property var speed_x;
     property var speed_y;
+    property var orientation;
 
     id:canvas
     onPaint: {
         var context = getContext("2d");
         //Refresh the orientation
-        var alpha = getAngle(speed_y, speed_x);
+        canvas.orientation = getAngle(speed_x, speed_y, canvas.orientation);
         //The canvas should be reset as the drawCar function rotates the canvas
         context.reset();
         drawBackground(context);
-        drawCar(context, position_x, position_y, 20, 40, alpha);
+        drawCar(context, position_x, position_y, 20, 40, orientation);
 
     }
 
@@ -55,16 +56,26 @@ Canvas {
     }
 
     //This function gets the angle, and preserves the previous angle value if the car stoppes.
-    function getAngle(speed_x, speed_y)
+    function getAngle(speed_x, speed_y, previous)
     {
-        var previous;
-        if((speed_x !== 0) && (speed_y !== 0))
-        {
-            previous = Math.atan2(speed_y, speed_x);
+        var angle;
+
+        if((float2int(speed_x) === 0) && (float2int(speed_y) !== 0)) {
+            angle = Math.PI/2;
+            return angle;
+        }
+        else if((float2int(speed_x) !== 0) && (float2int(speed_y) !== 0)) {
+            angle = Math.atan2(speed_y, speed_x)
+            return angle;
+        }
+        else if((float2int(speed_x) === 0) && (float2int(speed_y) === 0)) {
             return previous;
         }
-        else
-            return previous;
+    }
+
+    //A fucntion to convert float to int instead of using buggy js functions
+    function float2int (value) {
+        return value | 0;
     }
 
 }
