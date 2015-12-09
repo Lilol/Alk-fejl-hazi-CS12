@@ -24,7 +24,7 @@ A main() függvény ezután elindítja a Qt fő eseménykezelő ciklusát.
 
 Az MainApplication környezetét az alábbi osztálydiagram ábrázolja:
 
-![](diagrams/main_ClassDiagram.png)
+![](diagrams/wholeproject.png)
 
 A TcpSocketClient példánya felelős minden kommunikációért a kliens irányból (a másik a szimulátor, mely a mélyén tartalmaz egy TcpSocketServer objektumot).
 
