@@ -155,10 +155,10 @@ ApplicationWindow {
 
         LogList {
             anchors.fill: parent
-            anchors.topMargin: parent.height * 0.1
-            anchors.bottomMargin: parent.height * 0.1
-            anchors.leftMargin: parent.width * 0.3
-            anchors.rightMargin: parent.width * 0.3
+            anchors.topMargin: parent.height * 0.05
+            anchors.bottomMargin: parent.height * 0.05
+            anchors.leftMargin: parent.width * 0.2
+            anchors.rightMargin: parent.width * 0.2
 
             position_x : currentState.x
             position_y : currentState.y

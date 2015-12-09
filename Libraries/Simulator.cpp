@@ -27,7 +27,7 @@ void Simulator::start(float intervalSec)
 	state.setVy(0.0F);
     state.setAx(0.0F);
 	state.setAy(0.0F);
-    state.setLight(0);
+    state.setLight(false);
     timer.start((long)(intervalSec*1000.0F));
 }
 
@@ -46,7 +46,7 @@ void Simulator::tick()
     saturateVelocity();
 
     // Lámpa bekapcsolása a sebességtől függően
-    state.setLight( state.vx()==10.0F ? true : false );
+    state.setLight( sqrt((state.vx()*state.vx() + state.vy()*state.vy())) >= 10.0F ? true : false );
 
     // Magasabb szintű funkciók
     processStateInfo();
@@ -166,35 +166,62 @@ void Simulator::processStateInfo()
         state.setVy(0.0F);
         state.setAx(0.0F);
         state.setAy(0.0F);
-        state.setLight(0);
+        state.setLight(false);
         break;
     case RobotState::Status::Stopping:
         if (state.vx() > 1.5F)
         {
-            qDebug() << "Simulator: Stop parancs, gyors lassítás";
+            qDebug() << "Simulator: Stop parancs, gyors lassítás X irányban";
             state.setAx(-1.0F);
         }
         else if (state.vx() > 0.1F)
         {
-            qDebug() << "Simulator: Stop parancs, lassú lassítás";
+            qDebug() << "Simulator: Stop parancs, lassú lassítás X irányban";
             state.setAx(-0.05F);
         }
         else if (state.vx() < -1.5F)
         {
-            qDebug() << "Simulator: Stop parancs, gyorsítás előre";
+            qDebug() << "Simulator: Stop parancs, gyorsítás előre X irányban";
             state.setAx(1.0F);
         }
         else if (state.vx() < -0.1F)
         {
-            qDebug() << "Simulator: Stop parancs, lassú gyorsítás előre";
+            qDebug() << "Simulator: Stop parancs, lassú gyorsítás előre X irányban";
             state.setAx(0.05F);
         }
         else
         {
             // Majdnem megállt
-            qDebug() << "Simulator: Megállt.";
+            qDebug() << "Simulator: X irányú sebesség 0-ra csökkent.";
             state.setStatus(RobotState::Status::Default);
             state.setAx(0.0F);
+        }
+
+        if (state.vy() > 1.5F)
+        {
+            qDebug() << "Simulator: Stop parancs, gyors lassítás y irányban";
+            state.setAy(-1.0F);
+        }
+        else if (state.vy() > 0.1F)
+        {
+            qDebug() << "Simulator: Stop parancs, lassú lassítás y irányban";
+            state.setAy(-0.05F);
+        }
+        else if (state.vy() < -1.5F)
+        {
+            qDebug() << "Simulator: Stop parancs, gyorsítás y irányban előre";
+            state.setAy(1.0F);
+        }
+        else if (state.vy() < -0.1F)
+        {
+            qDebug() << "Simulator: Stop parancs, lassú gyorsítás előre y irányban";
+            state.setAy(0.05F);
+        }
+        else
+        {
+            // Majdnem megállt
+            qDebug() << "Simulator: Y irányú sebesség 0-ra csökkent.";
+            state.setAy(0.0F);
         }
         break;
     case RobotState::Status::Accelerate:
@@ -270,9 +297,13 @@ void Simulator::dataReady(QDataStream &inputStream)
     case RobotCommand::Command::Test:
         qDebug() << "Simulator: Teszt parancs.";
         state.setStatus(RobotState::Status::Testing);
-
         break;
     default:
         Q_UNREACHABLE();
     }
+}
+
+float Simulator::getSumVelocity()
+{
+    return sqrt(state.vx()*state.vx() + state.vy()*state.vy());
 }

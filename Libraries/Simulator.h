@@ -58,6 +58,7 @@ private:
     void saturatePosition();
     void doSensorSimulation();
     void doPhisicalSimulation();
+    float getSumVelocity();
 
     int selfTest();
 

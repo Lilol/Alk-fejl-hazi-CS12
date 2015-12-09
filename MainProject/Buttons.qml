@@ -18,7 +18,7 @@ Column {
     anchors.verticalCenter: parent.verticalCenter
     spacing: parent.parent.height/30
     Button {
-        text: "Lamp"
+        text: "Stop"
         style: ButtonStyle {
             background: Rectangle {
                 implicitWidth: 100
@@ -32,7 +32,7 @@ Column {
                 }
             }
         }
-        //onClicked: lampCommand();
+        onClicked: stopCommand();
     }
     Button {
         text: "Reset"
