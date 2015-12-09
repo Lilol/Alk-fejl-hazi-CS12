@@ -24,16 +24,6 @@ Canvas {
 
     }
 
-    //Timer refreshes the whole canvas approximately with 30FPS.
-    Timer {
-        interval: 35;
-        repeat: true;
-        running: true;
-        onTriggered: {
-            //canvas.requestPaint();
-        }
-    }
-
     //Draw the canvas on the available space.
     function drawBackground(context)
     {
@@ -60,14 +50,19 @@ Canvas {
     {
         var angle;
 
+        //If the car is moving vertically
         if((float2int(speed_x) === 0) && (float2int(speed_y) !== 0)) {
             angle = Math.PI/2;
             return angle;
         }
+
+        //If the car is moving non vertically
         else if((float2int(speed_x) !== 0) && (float2int(speed_y) !== 0)) {
             angle = Math.atan2(speed_y, speed_x)
             return angle;
         }
+
+        //When the car does not move, it preserves its orientation
         else if((float2int(speed_x) === 0) && (float2int(speed_y) === 0)) {
             return previous;
         }
