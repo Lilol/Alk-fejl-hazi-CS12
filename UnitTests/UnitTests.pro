@@ -10,7 +10,6 @@ QT      += network
 
 CONFIG += c++14
 QMAKE_CXXFLAGS_CXX11    = -std=c++1y
-CONFIG += static
 
 TARGET = UnitTests
 CONFIG   += console

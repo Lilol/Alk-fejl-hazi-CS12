@@ -8,7 +8,7 @@ A kliens és a szerver gyakorlatilag csak a kapcsolat felépítésében és lebo
 A TCP/IP interfészen keresztül küldhetünk adatokat a TcpSocketServer osztály és fogadhatunk adatokat a TcpSocketClient osztály segítségével. 
 Ezt az alábbi osztály diagram szemlélteti:
 
-![](diagrams/TcpCommunication_ClassDiagram.png)
+![](diagrams/communication_and_kornyezet.png)
 
 A működési alapelve, hogy a TcpCommunication::send() metódussal bármilyen objektumot ki lehet írni a küldési bufferbe, amire értelmezett az operator<< QDataStream-re. 
 A TcpCommunication::send() metúdus ennek segítségével sorosítja az üzenet objektumot, majd a TcpCommunication::sendBufferContent() metódussal elküldi azt.

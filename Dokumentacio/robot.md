@@ -2,7 +2,7 @@
 
 A robot reprezentációját az alábbi osztály diagram foglalja össze:
 
-![Robot class diagram](diagrams/robot_ClassDiagram.png)
+![Robot class diagram](diagrams/robotProy_kornyezete.png)
 
 A RobotProxy felelős a kliens többi része felé a kapcsolattartásért.
 A RobotProxy egy **proxy típusú tervezési mintát** valósít meg, mert a qml oldal felé a távoli robotot képviseli.

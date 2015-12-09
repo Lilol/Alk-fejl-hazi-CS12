@@ -34,9 +34,11 @@ public:
         /** Gyorsítási parancs a robotnak. A gyorsítás mértékét a robot
          * átveszi a RobotState::a tulajdonságból. */
         Accelerate = 3,
-
+        /** Önteszt elindult.*/
         Testing = 4,
+        /** A tesztelés véget ért, a robot megfelelő állapotban van.*/
         Test_OK = 5,
+        /** A teszt véget ért, a robot nem megfelelő állapotban van.*/
         Test_Error = 6
     };
 
