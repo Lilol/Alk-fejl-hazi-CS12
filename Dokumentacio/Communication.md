@@ -18,22 +18,16 @@ Erre a TcpCommunication::dataReady() signalra iratkozik fel a RobotProxy, hogy f
 
 Az adatküldés szekvencia diagramja a következő:
 
-![Data sending sequence diagram](diagrams/send_SequenceDiagram.png)
+![](diagrams/communication_send_sequence.png)
 
 A küldéshez a TcpCommunication::send() elkéri a küldési adatstreamet (TcpCommunication::getSendStream hívása), ebbe sorosítja a küldendő objektumot, majd a sendBufferContent() hívásával elküldi az adatokat.
 
 Adatok fogadása esetén az alábbi szekvencia diagram foglalja össze az eseményeket:
 
-![Data reception sequence diagram](diagrams/receive_SequenceDiagram.png)
+![](diagrams/communication_receive_sequence.png)
 
 A kommunikáció mélyén lévő QTcpSocket a kliens dataReceived slotján kereszül jelzi, hogy érkezett adat. 
 Mivel ilyenkor nem biztos, hogy a bufferben már egy egész üzenet benne van, így a kommunikáció csak akkor szól tovább a RobotProxynak (a TcpCommunication::dataReady signaljával), ha elegendő adat összegyűlt. 
 
 Amennyiben egy teljes adatcsomag átjött, a RobotProxy ezt kiolvassa (ehhez létrehoz egy új RobotState példányt), majd azt továbbítja a RobotStateHistory példányának. 
 A history pedig ezt egyrészt elmenti, másrészt a historyChanged() signal segítségével jelez a felhasználói felületnek, hogy frissíteni kell a megjelenítést.
-
-Végezetül még a kommunikációval kapcsolatos signal-slot hálózat képe az alábbi:
-
-![](diagrams/StvSignalMap_Comm.png)
-
-(Az ábrán négyzetekben láthatók az érintett objektumok, bal oldalukon a slotjaik, jobb oldalon pedig a signaljaik, valamint ezek kapcsolatai.)

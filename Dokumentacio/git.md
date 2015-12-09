@@ -13,15 +13,17 @@ A fejlesztést ezek után ebből a közös kiinduló pontból folytattuk tovább
 
 @section kepek Néhány kép a fejlesztés menetéről:
 Branchek:
-Communication, Simulator:
+communication, simulator:
 ![](images/git3_sim_comm.png)
 
 GUIcode:
 ![](images/git4_guibranch.png)
 
+
 A kezdetek:
 
 ![](images/git2_kezdetek.png)
+
 
 Általában hárman a kód három különböző részét fejlesztettük:
 

@@ -2,7 +2,7 @@
 
 A robot reprezentációját az alábbi osztály diagram foglalja össze:
 
-![Robot class diagram](diagrams/robotProy_kornyezete.png)
+![](diagrams/robotProy_kornyezete.png)
 
 A RobotProxy felelős a kliens többi része felé a kapcsolattartásért.
 A RobotProxy egy **proxy típusú tervezési mintát** valósít meg, mert a qml oldal felé a távoli robotot képviseli.
@@ -17,6 +17,3 @@ A RobotStateHistory három formában is tárol RobotState-et:
   * currentState: egy pointer az aktuális állapotra. Mivel az ownership a containeré, ezért ha változik az aktuális állapot, ezt a pointert nyugodtan át lehet állítani bármi egyéb teendő nélkül.
   * stateList: egy pointer lista a container minden elemére. Erre azért van szükség, mert a QML megjelenítés csak ilyen listához tud adatkötést felépíteni, a unique_ptr vectorhoz nem. 
 
-A robot reprezentációért felelős osztályok signal-slot hálózata az alábbi:
-
-![](diagrams/StvSignalMap_App.png)

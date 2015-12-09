@@ -2,7 +2,7 @@
 @tableofcontents
 
 @section video Videó
-Az alkalmazást bemutató videóért kattints [ide](https://www.aut.bme.hu/) .
+Az alkalmazást bemutató videóért kattints [ide](https://www.youtube.com/watch?v=-p_X1v3Kvac) .
 
 @section git Verziókövetés
 A fejlesztés verziókövetéséről bővebben: @ref gitleiras .
