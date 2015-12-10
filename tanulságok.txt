@@ -1,3 +1,0 @@
-1.)
-Subprojectek létrehozása Qt-ben:
-http://doc.qt.io/qtcreator/creator-project-creating.html#adding-subprojects-to-projects
