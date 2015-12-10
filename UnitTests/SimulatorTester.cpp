@@ -14,16 +14,26 @@ public:
 
 private Q_SLOTS:
 
-    /** \addtogroup test A szimulátor tesztfüggvényei
-     * A pozíció, sebesség és gyorsulás teszteléséhez.
-     *  @{
-     */
+    /** Pozíció tesztelő függvény. */
     void testPosition();
+	/** Gyorsulás tesztelő függvény. */
     void testAcceleration();
+	/** Sebesség tesztelő függvény. */
     void testVelocity();
-    /** @}*/
 
+	/** A teszteléshez szükséges parancs elküldése, a szimulátor indítása. */
     void initTestCase();
+	
+private:
+    QDataStream testerStream; /** Adatküldő stream, amivel a szimulátornak adott parancsot küldjük. */
+	QByteArray buffer;     /** Ebbe a bufferbe írjuk a @see SimulatorTester::command parancsot a küldés előtt. */
+    RobotCommand command; 	/** Kiadott parancs */
+    std::unique_ptr<Simulator> simulator;
+    RobotState robotState; 	/** A szimulátor aktuális állapota, aminek helyességét az osztály vizsgálja. */
+    qint64 timeIntervalBeginning; 	/** Mely pillanattól kezdődik az időmérés, amihez képest a sebesség- és pozícióváltozást mérjük. */
+    const int sentTickCount = 4; 	/** A szimulátorban ennyi időegység telik el a tesztek ellenőrzése előtt.*/
+
+    void initTesterCommand();
 
 private slots:
     /** A szimulátor ezen a bemeneten jelzi, hogy lezajlott a szimuláció, elérhetőek az adatok.*/
@@ -34,17 +44,6 @@ signals:
     void dataReady(QDataStream& stream);
     /** Szól a szimulátornak, hogy letelt egységnyi idő.*/
     void sendTick();
-
-private:
-    QDataStream testerStream;
-    QByteArray buffer;
-    RobotCommand command;
-    std::unique_ptr<Simulator> simulator;
-    RobotState robotState;
-    qint64 timeIntervalBeginning;
-    const int sentTickCount = 4;
-
-    void initTesterCommand();
 };
 
 SimulatorTester::SimulatorTester():

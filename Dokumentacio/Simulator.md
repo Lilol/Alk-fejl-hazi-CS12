@@ -1,6 +1,9 @@
 @page simulator Robot szimulátor
 
 A szimulátort a Simulator osztály foglalja magába, mely belül egy TcpSocketServer és egy RobotState objektumra támaszkodik. 
+A szimulátor és környezete a következő diagramon látható:
+
+![](diagrams/simulator_kornyezete.png)
 
 Minden bejövő üzenetet azonnal feldolgoz és egy QTimer segítségével periodikusan lefuttatja a szimulációt. 
 A bejövő üzenetek a RobotCommand osztály példányai.

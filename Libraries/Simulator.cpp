@@ -79,21 +79,21 @@ void Simulator::doSensorSimulation()
 
 void Simulator::saturatePosition()
 {
-    if (state.x() > 400)
+    if (state.x() > 375)
     {
-        state.setX(400);
+        state.setX(375);
     }
-    if (state.x() < -400)
+    if (state.x() < -375)
     {
-        state.setX(-400);
+        state.setX(-375);
     }
-    if (state.y() > 300)
+    if (state.y() > 275)
     {
-        state.setY(300);
+        state.setY(275);
     }
-    if (state.y() < -300)
+    if (state.y() < -275)
     {
-        state.setY(-300);
+        state.setY(-275);
     }
 }
 

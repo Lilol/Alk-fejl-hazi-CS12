@@ -59,7 +59,6 @@ private:
     void doSensorSimulation();
     void doPhisicalSimulation();
     float getSumVelocity();
-
     int selfTest();
 
 private slots:

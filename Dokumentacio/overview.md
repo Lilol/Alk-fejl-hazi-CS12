@@ -2,7 +2,7 @@
 @tableofcontents
 
 @section video Videó
-Az alkalmazást bemutató videóért kattints [ide](https://www.youtube.com/watch?v=-p_X1v3Kvac) .
+Az alkalmazást bemutató videó elérhető az alábbi [linken](https://www.youtube.com/watch?v=-p_X1v3Kvac) .
 
 @section git Verziókövetés
 A fejlesztés verziókövetéséről bővebben: @ref gitleiras .
@@ -15,6 +15,8 @@ Az alkalmazás fő részei:
    * @ref simulator : szimulálja a robot mozgását és válaszait a küldött parancsokra.
    * @ref gui : QML alapú megjelenítése a vezérlő nyomógomboknak, valamint az aktuális és korábbi állapotoknak.
    * @ref communication : TCP/IP alapú kommunikáció a szimulációval. A kommunikációs adatcsomagok a RobotState osztály példányait küldik a qml oldalnak, ebben továbbítódnak a konkrét állapotok, a robotot pedig a RobotCommand osztály példányaival irányíthatjuk.
+   
+A megvalósítást kiegészíti még a SimulatorTester osztály, amely szimulátort ellenőrző unit testeket tartalmazza. Bővebben itt: @ref unitTests
 
 @subsection Application MainApplication: az alkalmazás osztály
 

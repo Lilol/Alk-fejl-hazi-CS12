@@ -5,7 +5,7 @@ MainApplication::MainApplication(int argc, char *argv[])
       robot(history, communication), handler(robot, *engine.rootContext(), history)
 {
     // Szimulátor indítása
-    simulator.start(1.0F);
+    simulator.start(0.3F);
 
     // Csatlakozás a szimulátorhoz.
     communication.connect(QStringLiteral("localhost"),12345);
